@@ -41,7 +41,10 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameStates.MAIN_DECK_START;
         lastState = GameStates.MAIN_DECK_START;
-        lastSavePoint = savePoints[0];
+        if(savePoints.Count > 0)
+        {
+            lastSavePoint = savePoints[0];
+        }
     }
 
     public void EnterNextState()
