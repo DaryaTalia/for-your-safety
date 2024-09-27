@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling MAIN_DECK_INTERCOM_1_RINGING
         Debug.Log("Main Deck Intercom 1 is ringing.");
-        // Call Intercom.Ring()
+        MainDeckIntercom.Ring();
     }
 
     private void HandleMainDeckIntercom1Answered()
@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling AIRLOCK_INTERCOM_1_RINGING
         Debug.Log("Airlock Intercom 1 is ringing.");
-        // Call Intercom.Ring()
+        AirlockIntercom.Ring();
     }
 
     private void HandleAirlockIntercom1Answered()
@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling CREW_QUARTERS_INTERCOM_1_RINGING
         Debug.Log("Crew Quarters Intercom 1 is ringing.");
-        // Call Intercom.Ring()
+        CrewQuartersIntercom.Ring();
     }
 
     private void HandleCrewQuartersIntercom1Answered()
@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling STORAGE_ROOM_INTERCOM_1_RINGING
         Debug.Log("Storage Room Intercom 1 is ringing.");
-        // Call Intercom.Ring()
+        StorageIntercom.Ring();
     }
 
     private void HandleStorageRoomIntercom1Answered()

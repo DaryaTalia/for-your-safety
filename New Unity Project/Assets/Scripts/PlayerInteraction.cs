@@ -32,7 +32,6 @@ public class PlayerInteraction : MonoBehaviour
         // Intercom
         if (other.gameObject.CompareTag("Intercom"))
         {
-            // Null Reference Error On Next Line
             other.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
             return;
         }
