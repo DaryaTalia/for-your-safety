@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1403671871112423885}
   - component: {fileID: 5529554534500211562}
+  - component: {fileID: 1522669092073807497}
   m_Layer: 0
   m_Name: Interaction Range
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +54,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1522669092073807497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287025204217435268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088377e9677303d49a9432183691fd3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionDelegate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3114815730353123838
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,7 +83,7 @@ GameObject:
   - component: {fileID: 6666120864358309230}
   m_Layer: 0
   m_Name: Airlock Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

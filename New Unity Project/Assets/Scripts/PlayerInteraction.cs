@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             GameManager.Instance.keyFound = true;
             Destroy(other.gameObject);
+            return;
         }
 
         // Gun
@@ -18,6 +19,22 @@ public class PlayerInteraction : MonoBehaviour
         {
             GameManager.Instance.gunFound = true;
             Destroy(other.gameObject);
+            return;
+        }
+
+        // Buttons
+        if (other.gameObject.CompareTag("Button"))
+        {
+            other.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
+            return;
+        }
+
+        // Intercom
+        if (other.gameObject.CompareTag("Intercom"))
+        {
+            // Null Reference Error On Next Line
+            other.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
+            return;
         }
     }
 }

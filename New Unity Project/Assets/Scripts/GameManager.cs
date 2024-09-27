@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +42,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     PlayerMovement playerMovement;
+
+
+    public DoorScript MainDeckDoor;
+    public DoorScript AirlockDoor;
+    public DoorScript StorageDoor;
+
+    public IntercomScript MainDeckIntercom;
+    public IntercomScript AirlockIntercom;
+    public IntercomScript CrewQuartersIntercom;
+    public IntercomScript StorageIntercom;
+
 
     private void Awake()
     {
@@ -154,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling MAIN_DECK_INTERCOM_1_ANSWERED
         Debug.Log("Main Deck Intercom 1 answered.");
-        // Call Door.Unlock()
+        MainDeckDoor.Unlock();
     }
 
     private void HandleAirlockIntercom1Ringing()
@@ -173,7 +183,7 @@ public class GameManager : MonoBehaviour
     public void HandleSuccessfulAirlock()
     {
         jettisonComplete = true;
-        // Call Door.Unlock()
+        AirlockDoor.Unlock();
     }
 
     private void HandleCrewQuartersIntercom1Ringing()
@@ -200,6 +210,7 @@ public class GameManager : MonoBehaviour
     {
         // Logic for handling STORAGE_ROOM_INTERCOM_1_ANSWERED
         Debug.Log("Storage Room Intercom 1 answered.");
+        StorageDoor.Unlock();
     }
 
     private void HandleEngineRoomEntered()

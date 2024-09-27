@@ -58,12 +58,12 @@ public class DoorScript : MonoBehaviour
         locked = true;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         // Validate State
         if(open)
         {
-            Debug.Log("Door is already open.");
+            //Debug.Log("Door is already open.");
             return;
         }
 
@@ -105,7 +105,7 @@ public class DoorScript : MonoBehaviour
         // Validate State
         if (!open)
         {
-            Debug.Log("Door is already closed.");
+            //Debug.Log("Door is already closed.");
             return;
         }
 
