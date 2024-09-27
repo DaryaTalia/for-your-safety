@@ -4,16 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Enemy
+  - Gun
   - Key
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Enemy
   - Water
   - UI
   - Player
-  - Enemy
+  - 
   - 
   - 
   - 

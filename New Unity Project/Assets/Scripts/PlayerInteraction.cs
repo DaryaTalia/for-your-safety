@@ -12,5 +12,12 @@ public class PlayerInteraction : MonoBehaviour
             GameManager.Instance.keyFound = true;
             Destroy(other.gameObject);
         }
+
+        // Gun
+        if (other.gameObject.CompareTag("Gun"))
+        {
+            GameManager.Instance.gunFound = true;
+            Destroy(other.gameObject);
+        }
     }
 }

@@ -34,17 +34,24 @@ public class GameManager : MonoBehaviour
 
     public bool jettisonComplete;
     public bool keyFound;
+    public bool gunFound;
     public bool storageRoomMinionKilled;
     public bool engineRoomWindowDestroyed;
 
     public List<Transform> savePoints;
     Transform lastSavePoint;
 
+    [SerializeField]
     PlayerMovement playerMovement;
 
     private void Awake()
     {
         _instance = this;
+
+        if(playerMovement == null)
+        {
+            playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        }
     }
 
     // Start is called before the first frame update
