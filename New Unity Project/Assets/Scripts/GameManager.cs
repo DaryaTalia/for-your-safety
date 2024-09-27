@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance = null;
+
+    public static GameManager Instance
+    {
+        get => _instance;
+    }
+
     public enum GameStates { 
         // Story Beats
         MAIN_DECK_START,
@@ -26,8 +33,7 @@ public class GameManager : MonoBehaviour
     public GameStates currentState;
 
     public bool jettisonComplete;
-    public bool crewQuartersKeyFound;
-    public bool storageRoomKeyFound;
+    public bool keyFound;
     public bool storageRoomMinionKilled;
     public bool engineRoomWindowDestroyed;
 
@@ -35,6 +41,11 @@ public class GameManager : MonoBehaviour
     Transform lastSavePoint;
 
     PlayerMovement playerMovement;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
