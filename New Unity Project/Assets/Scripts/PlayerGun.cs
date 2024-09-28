@@ -16,7 +16,7 @@ public class PlayerGun : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(timer > 0)
+        if(GameManager.Instance.gunFound && timer > 0)
         {
             timer -= 1 * Time.deltaTime;
         }

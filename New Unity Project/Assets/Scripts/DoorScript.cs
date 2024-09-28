@@ -6,109 +6,70 @@ public class DoorScript : MonoBehaviour
 {
     [SerializeField]
     bool locked;
+
     [SerializeField]
     bool needsKey;      // If true, validate if player has key
+
     [SerializeField]
     bool open;
-    [SerializeField]
-    float openSpeed = .5f;
-    [SerializeField]
-    float closeSpeed = 3f;
 
     [SerializeField]
-    GameObject door;
-    Vector3 closedPosition;
-    float acceptableDistance = .001f;
+    Animator anim;
 
+    // Used to stop animation from playing multiple times
+    bool waiting;
 
-    float doorHeight = 24f;
+    public bool Open
+    {
+        get => open;
+        set => open = value;
+    }
+
+    public bool Locked
+    {
+        get => locked;
+        set => locked = value;
+    }
+
+    public bool NeedsKey
+    {
+        get => needsKey;
+        set => needsKey = value;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        closedPosition = door.transform.position;
-        //Lock();
+        anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void OpenDoor()
     {
-        if(open && (closedPosition.y + doorHeight) - door.transform.position.y >= acceptableDistance)
+        if (open && !waiting)
         {
-            door.transform.position = Vector3.Lerp(
-                door.transform.position, 
-                new Vector3(closedPosition.x, closedPosition.y + doorHeight, closedPosition.z),
-                openSpeed * Time.deltaTime);
+            anim.SetTrigger("OpenDoor");
+            waiting = true;
         }
-        else if (!open && Vector3.Distance(door.transform.position, closedPosition) >= acceptableDistance)
+    }
+
+    public void CloseDoor()
+    {
+        if (!open && waiting)
         {
-            door.transform.position = Vector3.Lerp(
-                door.transform.position, 
-                closedPosition,
-                closeSpeed * Time.deltaTime);
+            anim.SetTrigger("CloseDoor");
+            waiting = false;
         }
     }
 
     public void Unlock()
     {
         locked = false;
+        Debug.Log("Door Unlocked: " + locked);
     }
 
     public void Lock()
     {
         locked = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Validate State
-        if(open)
-        {
-            //Debug.Log("Door is already open.");
-            return;
-        }
-
-        // Validate Player
-        if (!other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Collider is not Player.");
-            return;
-        }
-
-        // Validate if Door is locked
-        if(locked)
-        {
-            // Validate if key is needed
-            if (!needsKey)
-            {
-                Debug.Log("If locked but no key is needed, player must unlock door through Story Event.");
-                return;
-            }
-
-            // Validate if Key is Needed & if Player has the Key
-            if (needsKey && !GameManager.Instance.keyFound)
-            {
-                Debug.Log("The Player does not have a key.");
-                return;
-            }
-            else if (needsKey && GameManager.Instance.keyFound)
-            {
-                Unlock();
-                GameManager.Instance.keyFound = false;
-            }
-        }
-
-        open = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        // Validate State
-        if (!open)
-        {
-            //Debug.Log("Door is already closed.");
-            return;
-        }
-
-        open = false;
+        Debug.Log("Door Locked: " + locked);
     }
 }
