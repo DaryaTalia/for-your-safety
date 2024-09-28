@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Intercom
   - Door
+  - Wrench
   layers:
   - Default
   - TransparentFX

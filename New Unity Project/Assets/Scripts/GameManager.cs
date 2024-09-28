@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public bool jettisonComplete;
     public bool keyFound;
+    public bool wrenchFound;
     public bool gunFound;
     public bool storageRoomMinionKilled;
     public bool engineRoomWindowDestroyed;
@@ -42,6 +43,20 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     PlayerMovement playerMovement;
+
+    public PlayerMovement Player
+    {
+        get => playerMovement;
+    }
+
+    [SerializeField]
+    int health = 3;
+
+    public int PlayerHealth
+    {
+        get => health;
+        set => health = value;
+    }
 
 
     public DoorScript MainDeckDoor;
@@ -234,9 +249,33 @@ public class GameManager : MonoBehaviour
         StateMachine();
     }
 
-    private void UseKey()
-    {
 
+    public void TakeDamage()
+    {
+        --health;
+        CheckDeath();
+    }
+
+    void CheckDeath()
+    {
+        if (health <= 0)
+        {
+            Debug.Log("Player is Dead");
+            ResetGame();
+        }
+    }
+
+    void ResetGame()
+    {
+        // Reset Player
+        currentState = GameStates.MAIN_DECK_START;
+        lastState = GameStates.MAIN_DECK_START;
+        if (savePoints.Count > 0)
+        {
+            lastSavePoint = savePoints[0];
+        }
+
+        playerMovement.gameObject.transform.position = lastSavePoint.position;
     }
 
 }

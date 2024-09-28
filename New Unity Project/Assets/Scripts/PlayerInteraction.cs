@@ -16,8 +16,7 @@ public class PlayerInteraction : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
-            controller.target = other;
-            controller.targetKey = "Key";
+            controller.SetNewTarget(other, "Key");
 
             StartCoroutine(Reset());
             return;
@@ -29,8 +28,19 @@ public class PlayerInteraction : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
-            controller.target = other;
-            controller.targetKey = "Key";
+            controller.SetNewTarget(other, "Gun");
+
+            StartCoroutine(Reset());
+            return;
+        }
+
+        // Wrench
+        if (other.gameObject.CompareTag("Wrench"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            controller.SetNewTarget(other, "Wrench");
 
             StartCoroutine(Reset());
             return;
@@ -134,8 +144,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        controller.target = null;
-        controller.targetKey = " ";
+        controller.ClearTarget();
 
         // Door
         if (other.gameObject.CompareTag("Door"))

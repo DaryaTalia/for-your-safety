@@ -11,6 +11,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float lookSpeed = 10f;
 
+    bool isCrouching;
+
+    [SerializeField]
+    Collider standingBody;
+    [SerializeField]
+    Collider crouchingBody;
+
+    [SerializeField]
+    GameObject standingHead;
+    [SerializeField]
+    GameObject crouchingHead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +55,37 @@ public class PlayerMovement : MonoBehaviour
     {
         float rotation = lookAction.ReadValue<float>();
         transform.Rotate(Vector3.up, rotation * lookSpeed * Time.deltaTime);
+    }
+
+    void OnCrouch()
+    {
+        // Start Crouch
+        if(isCrouching)
+        {
+            StandUp();
+        } else
+        {
+            CrouchDown();
+        }
+
+        Debug.Log("Is Crouching? " + isCrouching);
+    }
+
+    void CrouchDown()
+    {
+        isCrouching = true;
+        standingBody.enabled = false;
+        standingHead.SetActive(false);
+        crouchingBody.enabled = true;
+        crouchingHead.SetActive(true);
+    }
+
+    void StandUp()
+    {
+        isCrouching = false;
+        standingBody.enabled = true;
+        standingHead.SetActive(true);
+        crouchingBody.enabled = false;
+        crouchingHead.SetActive(false);
     }
 }

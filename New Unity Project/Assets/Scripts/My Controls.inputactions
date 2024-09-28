@@ -65,7 +65,7 @@
                     "name": "",
                     "id": "03d2d66f-2880-40d0-9a19-80deca910795",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Crouch",

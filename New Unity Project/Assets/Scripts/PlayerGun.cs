@@ -22,6 +22,7 @@ public class PlayerGun : MonoBehaviour
         }
     }
 
+    // Left Mouse Click to call 
     public void OnShoot()
     {
         if(!GameManager.Instance.gunFound)
@@ -36,19 +37,18 @@ public class PlayerGun : MonoBehaviour
             return;
         }
 
-        // Damage enemy here
-
         Debug.Log("Shoot");
         timer = cooldown;
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.blue, 15f);
 
-        RaycastHit result = new RaycastHit();
+        RaycastHit result;
 
         bool hit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out result, range, enemyMask);
         
         if (hit)
         {
             Debug.Log("Shot Enemy");
+            result.collider.gameObject.GetComponent<EnemyBehavior>().TakeDamage();
         }
         
     }
