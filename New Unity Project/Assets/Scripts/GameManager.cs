@@ -234,5 +234,9 @@ public class GameManager : MonoBehaviour
         StateMachine();
     }
 
+    private void UseKey()
+    {
+
+    }
 
 }

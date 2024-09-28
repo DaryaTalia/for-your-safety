@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     bool isColliding;
+    [SerializeField]
+    InteractionController controller;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,8 +16,8 @@ public class PlayerInteraction : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
-            GameManager.Instance.keyFound = true;
-            Destroy(other.gameObject);
+            controller.target = other;
+            controller.targetKey = "Key";
 
             StartCoroutine(Reset());
             return;
@@ -27,8 +29,8 @@ public class PlayerInteraction : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
-            GameManager.Instance.gunFound = true;
-            Destroy(other.gameObject);
+            controller.target = other;
+            controller.targetKey = "Key";
 
             StartCoroutine(Reset());
             return;
@@ -132,6 +134,9 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        controller.target = null;
+        controller.targetKey = " ";
+
         // Door
         if (other.gameObject.CompareTag("Door"))
         {
