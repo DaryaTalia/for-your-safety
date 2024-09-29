@@ -54,6 +54,34 @@ public class InteractionController : MonoBehaviour
 
                 break;
 
+            case "Button":
+
+                target.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
+
+                ClearTarget();
+
+                break;
+
+            case "Intercom":
+
+
+                if (target.GetComponent<IntercomScript>() == null)
+                {
+                    Debug.Log("Intercom Sctipt Not Found");
+                    Debug.Log("Other = " + target.gameObject.name);
+                    return;
+                }
+
+                if (target.GetComponent<IntercomScript>().ActionDelegate == null)
+                {
+                    Debug.Log("Action Delegate Not Found");
+                    Debug.Log("Other = " + target.gameObject.name);
+                    return;
+                }
+
+                target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
+                Debug.Log("Invoking Intercom Action Delegate");
+                break;
 
 
             default:
@@ -62,16 +90,18 @@ public class InteractionController : MonoBehaviour
         }
     }
 
-    void OnPause()
+    public void OnPause()
     {
         if(!GameManager.Instance.GamePaused)
         {
             GameManager.Instance.uiManager.PauseGame();
             GameManager.Instance.GamePaused = true;
+            GameManager.Instance.Player.gameObject.SetActive(false);
         } else
         {
             GameManager.Instance.uiManager.ResumeGame();
             GameManager.Instance.GamePaused = false;
+            GameManager.Instance.Player.gameObject.SetActive(true);
 
         }
     }

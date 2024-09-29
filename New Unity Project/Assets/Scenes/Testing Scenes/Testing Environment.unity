@@ -23645,6 +23645,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1290982136853817565, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290982136853817565, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4529155568351847355, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
       propertyPath: m_Name
       value: Game VerticalSlice
@@ -23662,21 +23670,53 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5014935156692017523}
     - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: AirlockDoorExit
+      value: 
+      objectReference: {fileID: 8678143558709636942}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
       propertyPath: AirlockIntercom
       value: 
       objectReference: {fileID: 8226331260071390432}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: StorageDoorExit
+      value: 
+      objectReference: {fileID: 9049056629618479058}
     - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
       propertyPath: StorageIntercom
       value: 
       objectReference: {fileID: 6819323079306939829}
     - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: AirlockDoorEntry
+      value: 
+      objectReference: {fileID: 6445475269267133322}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: MainDeckDoorExit
+      value: 
+      objectReference: {fileID: 5014935156692017523}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
       propertyPath: MainDeckIntercom
       value: 
       objectReference: {fileID: 8554951604311291496}
     - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: StorageDoorEntry
+      value: 
+      objectReference: {fileID: 8018148301995434897}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: EngineRoomDoorEntry
+      value: 
+      objectReference: {fileID: 5036112383641564814}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
       propertyPath: CrewQuartersIntercom
       value: 
       objectReference: {fileID: 7513508018029413653}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: CrewQuartersDoorEntry
+      value: 
+      objectReference: {fileID: 9037694629078083195}
+    - target: {fileID: 6824287206380338846, guid: 81cc18a9eea6444448c6037d7ca6b44d, type: 3}
+      propertyPath: CrewQuartersDoorDoorExit
+      value: 
+      objectReference: {fileID: 5928573978729581374}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24047,7 +24087,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1830880944}
-  - {fileID: 1216018083}
   - {fileID: 272795298}
   - {fileID: 1939678459}
   - {fileID: 1514953097}
@@ -24058,6 +24097,7 @@ Transform:
   - {fileID: 1436403772}
   - {fileID: 1998512983}
   - {fileID: 1831160847}
+  - {fileID: 1216018083}
   m_Father: {fileID: 515769337932064511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3143183508403646444
@@ -30430,7 +30470,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  IntercomDialogue: []
+  IntercomDialogue:
+  - "You\u2019ll need to find an access swiper."
+  - For your safety, you have to check the crews quarters for a Cargo Handlers badge.
+  - First, jettison the obtrusion in the airlock.
 --- !u!4 &8236609313168727214
 Transform:
   m_ObjectHideFlags: 0
@@ -30836,9 +30879,9 @@ MonoBehaviour:
   ActionDelegate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5014935156692017523}
-        m_TargetAssemblyTypeName: DoorScript, Assembly-CSharp
-        m_MethodName: Unlock
+      - m_Target: {fileID: 7915508872441147383}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: EnterNextState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30848,7 +30891,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  IntercomDialogue: []
+  IntercomDialogue:
+  - Thank God someone else survived.
+  - "Ship\u2019s emergency protocol triggered."
+  - For your safety, you need to unlock the engineering bay.
 --- !u!64 &8571516573696087295
 MeshCollider:
   m_ObjectHideFlags: 0

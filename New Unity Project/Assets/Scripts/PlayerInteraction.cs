@@ -8,6 +8,11 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     InteractionController controller;
 
+    [SerializeField]
+    [TextArea(2, 5)]
+    List<string> MainDeckDialogue;
+    int dialogueDelay = 3;
+
     private void OnTriggerEnter(Collider other)
     {
         // Key
@@ -51,7 +56,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (isColliding) return;
             isColliding = true;
-            other.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
+
+            controller.SetNewTarget(other, "Button");
 
             StartCoroutine(Reset());
             return;
@@ -63,26 +69,7 @@ public class PlayerInteraction : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
-            if (other.GetComponent<IntercomScript>() == null)
-            {
-                Debug.Log("Intercom Sctipt Not Found");
-                Debug.Log("Other = " + other.gameObject.name);
-
-                StartCoroutine(Reset());
-                return;
-            }
-
-            if (other.GetComponent<IntercomScript>().ActionDelegate == null)
-            {
-                Debug.Log("Action Delegate Not Found");
-                Debug.Log("Other = " + other.gameObject.name);
-
-                StartCoroutine(Reset());
-                return;
-            }
-
-            other.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
-            Debug.Log("Invoking Intercom Action Delegate");
+            controller.SetNewTarget(other, "Intercom");
 
             StartCoroutine(Reset());
             return;
@@ -173,6 +160,35 @@ public class PlayerInteraction : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         isColliding = false;
+    }
+
+    public void PlayMainDeckDialogue()
+    {
+        int order = 0;
+        MainDeckDialogue.Insert(0, " ");
+        MainDeckDialogue.Add(" ");
+        foreach (string text in MainDeckDialogue)
+        {
+            StartCoroutine(Speak(text, dialogueDelay * order++));
+        }
+        StartCoroutine(ContinueGameMainDeck1());
+    }
+
+    public void StopMainDeckDialogue()
+    {
+        StopCoroutine(Speak("", 0));
+    }
+
+    IEnumerator Speak(string message, int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.Instance.uiManager.UpdateProtagText(message);
+    }
+
+    IEnumerator ContinueGameMainDeck1()
+    {
+        yield return new WaitForSeconds(MainDeckDialogue.Count * dialogueDelay - dialogueDelay * 2);
+        GameManager.Instance.EnterNextState();
     }
 
 }

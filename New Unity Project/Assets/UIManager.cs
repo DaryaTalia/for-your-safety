@@ -42,6 +42,12 @@ public class UIManager : MonoBehaviour
         DisableGameplayPanel();
     }
 
+    public void StartMainMenuUI()
+    {
+        EnableMainMenuPanel();
+        DisableGameplayPanel();
+    }
+
     public void StartGameUI()
     {
         DisableMainMenuPanel();

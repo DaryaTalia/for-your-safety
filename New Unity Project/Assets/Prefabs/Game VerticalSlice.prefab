@@ -47,9 +47,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
+      propertyPath: lastState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1252480805962646624}
+    - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
+      propertyPath: currentState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
       propertyPath: playerMovement
       value: 
@@ -127,10 +135,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1540166763235108621, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6824287206380338846}
+    - target: {fileID: 1540166763235108621, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EnterNextState
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540166763235108621, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678470511859408090, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3678470511859408090, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 6824287206380338846}
+      objectReference: {fileID: 1252480805962646624}
+    - target: {fileID: 3678470511859408090, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EnableMainMenuPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678470511859408090, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4846861184765701869, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -211,10 +243,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5445646073639181640, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445646073639181640, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6561689807317930533}
     - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 6824287206380338846}
+    - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DisableCreditsPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679452299731254643, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: InteractionController, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -247,6 +307,42 @@ PrefabInstance:
     - target: {fileID: 3449161097325370005, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[0]
+      value: "F*%in\u2019 \u2018ell my head\u2019s killing me"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[1]
+      value: Memories foggy too. . .
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[2]
+      value: That's right, I'm a Star Navigator for the Herringer.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[3]
+      value: That's right, I'm a Star Navigator for the Herringer.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[4]
+      value: Huh?
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[5]
+      value: "\u2018Least coms are up.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[6]
+      value: "Who\u2019s calling?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708219130851168741, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+      propertyPath: MainDeckDialogue.Array.data[7]
+      value: "Who\u2019s calling?"
       objectReference: {fileID: 0}
     - target: {fileID: 8761306515218032477, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -307,5 +403,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c596db4bfedb314f8bf2fd89c8885c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6561689807317930533 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 303973767461665982, guid: df62de603ca8c6c45a0db8e76817836e, type: 3}
+  m_PrefabInstance: {fileID: 6861269880879607451}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aec9a3091abc9469640c996395c1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
