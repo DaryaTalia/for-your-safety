@@ -18,6 +18,17 @@ public class InteractionController : MonoBehaviour
             case "Key":
 
                 GameManager.Instance.keyFound = true;
+                GameManager.Instance.uiManager.GetInventoryPanelController().AddNewItem(targetKey);
+                Destroy(target.gameObject);
+
+                ClearTarget();
+
+                break;
+
+            case "KeyCard":
+
+                GameManager.Instance.keyFound = true;
+                GameManager.Instance.uiManager.GetInventoryPanelController().AddNewItem(targetKey);
                 Destroy(target.gameObject);
 
                 ClearTarget();
@@ -36,6 +47,7 @@ public class InteractionController : MonoBehaviour
             case "Wrench":
 
                 GameManager.Instance.wrenchFound = true;
+                GameManager.Instance.uiManager.GetInventoryPanelController().AddNewItem(targetKey);
                 Destroy(target.gameObject);
 
                 ClearTarget();
@@ -47,6 +59,20 @@ public class InteractionController : MonoBehaviour
             default:
                 ClearTarget();
                 break;
+        }
+    }
+
+    void OnPause()
+    {
+        if(!GameManager.Instance.GamePaused)
+        {
+            GameManager.Instance.uiManager.PauseGame();
+            GameManager.Instance.GamePaused = true;
+        } else
+        {
+            GameManager.Instance.uiManager.ResumeGame();
+            GameManager.Instance.GamePaused = false;
+
         }
     }
 

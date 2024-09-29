@@ -31,6 +31,13 @@ public class GameManager : MonoBehaviour
     public GameStates lastState;
     public GameStates currentState;
 
+    bool gamePaused;
+    public bool GamePaused
+    {
+        get => gamePaused;
+        set => gamePaused = value;
+    }
+
     public bool jettisonComplete;
     public bool keyFound;
     public bool wrenchFound;
@@ -67,6 +74,8 @@ public class GameManager : MonoBehaviour
     public IntercomScript AirlockIntercom;
     public IntercomScript CrewQuartersIntercom;
     public IntercomScript StorageIntercom;
+
+    public UIManager uiManager;
 
 
     private void Awake()

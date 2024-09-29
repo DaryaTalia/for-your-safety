@@ -44,3 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19196805274e70049a93d454e0a5a539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastState: 0
+  currentState: 0
+  jettisonComplete: 0
+  keyFound: 0
+  wrenchFound: 0
+  gunFound: 0
+  storageRoomMinionKilled: 0
+  engineRoomWindowDestroyed: 0
+  savePoints: []
+  playerMovement: {fileID: 0}
+  health: 3
+  MainDeckDoor: {fileID: 0}
+  AirlockDoor: {fileID: 0}
+  StorageDoor: {fileID: 0}
+  MainDeckIntercom: {fileID: 0}
+  AirlockIntercom: {fileID: 0}
+  CrewQuartersIntercom: {fileID: 0}
+  StorageIntercom: {fileID: 0}
+  uiManager: {fileID: 0}
