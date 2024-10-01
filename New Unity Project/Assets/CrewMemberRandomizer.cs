@@ -12,6 +12,9 @@ public class CrewMemberRandomizer : MonoBehaviour
     [SerializeField]
     List<Sprite> CrewMemberSprites;
 
+    [SerializeField]
+    CrewQuartersKey crewQuartersKey;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,5 +30,7 @@ public class CrewMemberRandomizer : MonoBehaviour
             crew.transform.localRotation = Quaternion.Euler(0, 0, 0);
             crew.GetComponentInChildren<SpriteRenderer>().sprite = CrewMemberSprites[Random.Range(0, CrewMemberSprites.Count)];
         }
+
+        crewQuartersKey.enabled = true;
     }
 }

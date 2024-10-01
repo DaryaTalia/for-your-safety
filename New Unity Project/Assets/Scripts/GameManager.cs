@@ -66,6 +66,13 @@ public class GameManager : MonoBehaviour
         set => gamePaused = value;
     }
 
+
+    [SerializeField]
+    GameObject KeycardPrefab;
+    [SerializeField]
+    GameObject MDKeycardLocation;
+
+
     public bool keyFound;
     public bool gunFound;
 
@@ -450,6 +457,7 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckIntercom.Answer();
+        Instantiate(KeycardPrefab, MDKeycardLocation.transform);
     }
 
     private void HandleMainDeckKeyCardCollected()
@@ -584,7 +592,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Storage Room Chase.");
 
         // Start First Task
-        Instantiate(minion, minionSpawnSR.transform);
+        GameObject newMinion = Instantiate(minion, minionSpawnSR.transform);
     }
     
     private void HandleStorageRoomAccessCardObtained()

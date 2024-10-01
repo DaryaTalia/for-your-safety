@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2461264279030075518}
   - component: {fileID: 2053984983542586245}
   - component: {fileID: 2346524766105954743}
+  - component: {fileID: 8663193257301610895}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,6 +49,8 @@ MonoBehaviour:
   lastState: 1
   currentState: 1
   currentLocation: 0
+  KeycardPrefab: {fileID: 1115002580470596620, guid: 0193c19e75f5e194aa8b7a7f399bbc38, type: 3}
+  MDKeycardLocation: {fileID: 0}
   keyFound: 0
   gunFound: 0
   Button1Pushed: 0
@@ -64,9 +67,12 @@ MonoBehaviour:
   AirlockBody: {fileID: 0}
   doorBanging: {fileID: 0}
   minion: {fileID: 4326621533753682942, guid: 8f9fa6a6970b7574cb7611780eccf75a, type: 3}
+  minionSpawnCQ: {fileID: 0}
+  minionSpawnSR: {fileID: 0}
   entity: {fileID: 5013925071944856332, guid: dee155e9be881d144b039da04103c08d, type: 3}
+  portalLocation: {fileID: 0}
   portal: {fileID: 9135990832406110329, guid: 944410d5cd1d11b44aa42a0fd581372e, type: 3}
-  engineRoomWindow: {fileID: 8288137579551951018, guid: b96a7d8236750e44185e0fe8e857fadb, type: 3}
+  engineRoomWindow: {fileID: 0}
   brokenWindowMesh: {fileID: 5284581570695856504, guid: 5d22c7dae0e813d43860c46579dd082f, type: 3}
   MainDeckDoor: {fileID: 0}
   AirlockDoor: {fileID: 0}
@@ -102,3 +108,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4154de3ddf5d4004f8bcddf24b99be39, type: 3}
   - {fileID: 21300000, guid: 9b656e1b1f74ea64eb6b18e0451dc3fa, type: 3}
   - {fileID: 21300000, guid: 237199ac0af02a44bbba1c0fc51f3e54, type: 3}
+--- !u!114 &8663193257301610895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944374602343852353}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67541308a1655d145bed39dcc48812bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeycardPrefab: {fileID: 1115002580470596620, guid: 0193c19e75f5e194aa8b7a7f399bbc38, type: 3}
+  CrewMemberPositions: []

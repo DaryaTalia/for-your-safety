@@ -15,6 +15,9 @@ public class EnemyBehavior : MonoBehaviour
     float AttackCooldown = 3;
     bool canAttack;
 
+    [SerializeField]
+    GameObject KeycardPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,12 @@ public class EnemyBehavior : MonoBehaviour
         if(health <= 0)
         {
             Debug.Log("Enemy is Dead");
+
+            if(gameObject.CompareTag("Enemy"))
+            {
+                Instantiate(KeycardPrefab, gameObject.transform);
+            }
+
             Destroy(gameObject, 3);
         }
     }

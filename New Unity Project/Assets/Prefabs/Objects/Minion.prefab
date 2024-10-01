@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   speed: 2
+  KeycardPrefab: {fileID: 1115002580470596620, guid: 0193c19e75f5e194aa8b7a7f399bbc38, type: 3}
 --- !u!212 &6796315352689461427
 SpriteRenderer:
   m_ObjectHideFlags: 0
