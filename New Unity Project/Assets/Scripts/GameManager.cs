@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +19,7 @@ public class GameManager : MonoBehaviour
         MAIN_MENU,
 
         // Story Beats
+        INTRO_SEQUENCE,
         MAIN_DECK_START,
         MAIN_DECK_INTERCOM_RINGING,
         MAIN_DECK_INTERCOM_ANSWERED,
@@ -104,11 +104,17 @@ public class GameManager : MonoBehaviour
     AudioClip doorBanging;
 
     [SerializeField]
-    EnemyBehavior minion;
+    GameObject minion;
+    [SerializeField]
+    GameObject minionSpawnCQ;
+    [SerializeField]
+    GameObject minionSpawnSR;
 
     [SerializeField]
-    EnemyBehavior entity;
+    GameObject entity;
 
+    [SerializeField]
+    Transform portalLocation;
     [SerializeField]
     GameObject portal;
 
@@ -131,6 +137,7 @@ public class GameManager : MonoBehaviour
     public IntercomScript EngineRoomIntercom;
 
     public UIManager uiManager;
+    CrewMemberRandomizer crewMemberRandomizer;
 
     #endregion
 
@@ -155,15 +162,31 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Game Start");
+
+        // Game State
         currentState = GameStates.MAIN_MENU;
         lastState = GameStates.MAIN_MENU;
-        Debug.Log("Game Start");
+
+        // UI & Player
         uiManager.StartMainMenuUI();
         Player.gameObject.SetActive(false);
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
+
+        // Crew Randomizer
+        crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
+
+        // Enemy
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             go.SetActive(false);
         }
+
+        // Save States
+        if(savePoints.Count < 1)
+        {
+            return;
+        }
+        lastSavePoint = savePoints[0];
     }
 
     private void Update()
@@ -171,7 +194,7 @@ public class GameManager : MonoBehaviour
         // Event Listeners
         if(keyFound && currentLocation == Locations.MAIN_DECK)
         {
-            EnterNextState();
+            //EnterNextState();
         }
         if( !MainDeckDoor.Open && currentLocation == Locations.AIRLOCK )
         {
@@ -183,7 +206,7 @@ public class GameManager : MonoBehaviour
         }
         if (keyFound && currentLocation == Locations.CREW_QUARTERS)
         {
-            EnterNextState();
+            //EnterNextState();
         }
         if ( !CrewQuartersDoor.Open && currentLocation == Locations.STORAGE_ROOM )
         {
@@ -191,7 +214,7 @@ public class GameManager : MonoBehaviour
         }
         if (keyFound && currentLocation == Locations.STORAGE_ROOM)
         {
-            EnterNextState();
+            //EnterNextState();
         }
         if ( !StorageDoor.Open && currentLocation == Locations.ENGINE_ROOM )
         {
@@ -245,6 +268,9 @@ public class GameManager : MonoBehaviour
         {
             case GameStates.MAIN_DECK_START:
                 HandleMainDeckStart();
+                break;
+            case GameStates.INTRO_SEQUENCE:
+                HandleIntroSequence();
                 break;
 
             case GameStates.MAIN_DECK_INTERCOM_RINGING:
@@ -378,9 +404,15 @@ public class GameManager : MonoBehaviour
 
     #region Handlers
 
+    private void HandleIntroSequence()
+    {
+        Debug.Log("Intro Sequence State Triggered.");
+
+        uiManager.StartIntroSequence();
+    }
+
     private void HandleMainDeckStart()
     {
-        // Logic for handling MAIN_DECK_START
         Debug.Log("Main Deck Start State Triggered.");
 
         // Initialize game
@@ -391,6 +423,9 @@ public class GameManager : MonoBehaviour
 
         // Enable Player
         Player.gameObject.SetActive(true);
+
+        // Initialize Crew Members
+        crewMemberRandomizer.enabled = true;
 
         // Update Gameplay UI
         uiManager.StartGameUI();
@@ -415,9 +450,6 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckIntercom.Answer();
-
-        // Start Second Task
-        NextRespawnPoint();
     }
 
     private void HandleMainDeckKeyCardCollected()
@@ -438,6 +470,7 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         MainDeckDoor.Lock();
+        keyFound = false;
     }
 
     private void HandleAirlockIntercomAnswered()
@@ -511,6 +544,9 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         HandleUnfreezePlayerMovement();
+
+        //Start Second Task
+        Instantiate(minion, minionSpawnCQ.transform);
     }
 
     private void HandleUnfreezePlayerMovement()
@@ -540,6 +576,7 @@ public class GameManager : MonoBehaviour
 
         // Start Third Task
         NextRespawnPoint();
+        keyFound = false;
     }
     
     private void HandleStorageRoomChase()
@@ -547,7 +584,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Storage Room Chase.");
 
         // Start First Task
-        Instantiate(minion, CrewQuartersDoor.gameObject.transform);
+        Instantiate(minion, minionSpawnSR.transform);
     }
     
     private void HandleStorageRoomAccessCardObtained()
@@ -563,7 +600,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Engine Room Entered.");
 
         // Start First Task
-        Instantiate(entity, portal.transform);
+        GameObject newPortal = Instantiate(portal, portalLocation);
+        Instantiate(entity, newPortal.transform);
 
         // Start Second Task
         EngineRoomIntercom.Answer();
@@ -589,17 +627,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Engine Room Window Shot.");
 
         // Start First Task
-        engineRoomWindow.GetComponent<MeshFilter>().mesh = brokenWindowMesh;
+        engineRoomWindow.GetComponentInChildren<MeshFilter>().mesh = brokenWindowMesh;
 
         // Start Second Task
 
         // Calculate Directions to Window
         Vector3 directionPlayerToWindow = engineRoomWindow.transform.position - Player.gameObject.transform.position;
-        Vector3 directionEntityToWindow = engineRoomWindow.transform.position - GameObject.FindGameObjectWithTag("EnemyBehavior").transform.position;
+        Vector3 directionEntityToWindow = engineRoomWindow.transform.position - GameObject.FindGameObjectWithTag("Enemy").transform.position;
 
         // Throw Player and Entity out the window
         Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow, ForceMode.Force);
-        GameObject.FindGameObjectWithTag("EnemyBehavior").GetComponent<Rigidbody>().AddForce(directionEntityToWindow, ForceMode.Force);
+        GameObject.FindGameObjectWithTag("Enemy").GetComponent<Rigidbody>().AddForce(directionEntityToWindow, ForceMode.Force);
 
         // End Game
         EnterNextState();

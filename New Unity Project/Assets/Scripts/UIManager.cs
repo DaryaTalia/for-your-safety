@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +13,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Gameplay")]
     [SerializeField]
+    GameObject IntroSequencePanel;
+    [SerializeField]
     GameObject GameplayPanel;
     [SerializeField]
     GameObject PausePanel;
@@ -27,8 +26,6 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI LocationText;
     [SerializeField]
     TextMeshProUGUI ProtagText;
-    [SerializeField]
-    TextMeshProUGUI IntercomMessageText;
 
     public InventoryPanelUI GetInventoryPanelController()
     {
@@ -38,6 +35,7 @@ public class UIManager : MonoBehaviour
     void OnAwake()
     {
         EnableMainMenuPanel();
+        EnableCreditsPanel();
         DisableCreditsPanel();
         DisableGameplayPanel();
     }
@@ -48,13 +46,19 @@ public class UIManager : MonoBehaviour
         DisableGameplayPanel();
     }
 
-    public void StartGameUI()
+    public void StartIntroSequence()
     {
         DisableMainMenuPanel();
+        EnableIntroSequencePanel();
+        IntroSequencePanel.GetComponent<IntroSequenceAnimation>().PlayIntroSequence();
+    }
+
+    public void StartGameUI()
+    {
+        DisableIntroSequencePanel();
         EnableGameplayPanel();
         UpdateLocationText(" ");
         UpdateProtagText(" ");
-        UpdateIntercomText(" ");
     }
 
     public void QuitGame()
@@ -83,6 +87,17 @@ public class UIManager : MonoBehaviour
     {
         MainMenuPanel.SetActive(false);
     }
+
+    public void EnableIntroSequencePanel()
+    {
+        IntroSequencePanel.SetActive(true);
+    }
+
+    public void DisableIntroSequencePanel()
+    {
+        IntroSequencePanel.SetActive(false);
+    }
+
     public void EnableCreditsPanel()
     {
         CreditsPanel.SetActive(true);
@@ -102,6 +117,7 @@ public class UIManager : MonoBehaviour
     {
         CreditsBackButtonMM.SetActive(false);
     }
+
     public void EnableCreditsPMButton()
     {
         CreditsBackButtonPM.SetActive(true);
@@ -140,11 +156,6 @@ public class UIManager : MonoBehaviour
     public void UpdateProtagText(string protagText)
     {
         ProtagText.text = protagText;
-    }
-
-    public void UpdateIntercomText(string intercomText)
-    {
-        IntercomMessageText.text = intercomText;
     }
 
 }

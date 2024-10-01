@@ -17,6 +17,7 @@ TagManager:
   - CREW_QUARTERS
   - STORAGE_ROOM
   - ENGINE_ROOM
+  - Entity
   layers:
   - Default
   - TransparentFX

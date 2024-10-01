@@ -10,9 +10,8 @@ public class IntercomScript : MonoBehaviour
     [SerializeField]
     [TextArea(2, 5)]
     List<string> IntercomDialogue;
-    int index;
-    int dialogueDelay = 2;
 
+    int dialogueDelay = 2;
     bool ringing;
     bool ringCooldown;
     int ringTimer = 3;
@@ -35,9 +34,9 @@ public class IntercomScript : MonoBehaviour
     IEnumerator Ring()
     {
         // Play Intercom Ringing Sound on Loop
-        GameManager.Instance.uiManager.UpdateIntercomText(" ");
+        GameManager.Instance.uiManager.UpdateProtagText(" ");
         yield return new WaitForSeconds(ringTimer);
-        GameManager.Instance.uiManager.UpdateIntercomText("**Ringing**");
+        GameManager.Instance.uiManager.UpdateProtagText("**Ringing**");
         yield return new WaitForSeconds(ringTimer);
         ringCooldown = false;
     }
@@ -47,7 +46,7 @@ public class IntercomScript : MonoBehaviour
         // Destroy Audio Device to end ringing
         ringing = false;
         ringCooldown = false;
-        GameManager.Instance.uiManager.UpdateIntercomText(" ");
+        GameManager.Instance.uiManager.UpdateProtagText(" ");
         StopAllCoroutines();
         DisplayDialogue();
     }
@@ -65,6 +64,6 @@ public class IntercomScript : MonoBehaviour
     IEnumerator DialogueIterator(string message, int delay)
     {
         yield return new WaitForSeconds(delay);
-        GameManager.Instance.uiManager.UpdateIntercomText(message);
+        GameManager.Instance.uiManager.UpdateProtagText(message);
     }
 }

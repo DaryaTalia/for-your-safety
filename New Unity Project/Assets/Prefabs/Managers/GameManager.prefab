@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2461264279030075518}
   - component: {fileID: 2053984983542586245}
+  - component: {fileID: 2346524766105954743}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,22 +45,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19196805274e70049a93d454e0a5a539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastState: 0
-  currentState: 0
-  jettisonComplete: 0
+  lastState: 1
+  currentState: 1
+  currentLocation: 0
   keyFound: 0
-  wrenchFound: 0
   gunFound: 0
-  storageRoomMinionKilled: 0
-  engineRoomWindowDestroyed: 0
-  savePoints: []
+  Button1Pushed: 0
+  Button2Pushed: 0
+  WindowShot: 0
+  savePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerMovement: {fileID: 0}
   health: 3
+  AirlockBody: {fileID: 0}
+  doorBanging: {fileID: 0}
+  minion: {fileID: 4326621533753682942, guid: 8f9fa6a6970b7574cb7611780eccf75a, type: 3}
+  entity: {fileID: 5013925071944856332, guid: dee155e9be881d144b039da04103c08d, type: 3}
+  portal: {fileID: 9135990832406110329, guid: 944410d5cd1d11b44aa42a0fd581372e, type: 3}
+  engineRoomWindow: {fileID: 8288137579551951018, guid: b96a7d8236750e44185e0fe8e857fadb, type: 3}
+  brokenWindowMesh: {fileID: 5284581570695856504, guid: 5d22c7dae0e813d43860c46579dd082f, type: 3}
   MainDeckDoor: {fileID: 0}
   AirlockDoor: {fileID: 0}
+  ExternalAirlockDoor: {fileID: 0}
+  CrewQuartersDoor: {fileID: 0}
   StorageDoor: {fileID: 0}
   MainDeckIntercom: {fileID: 0}
   AirlockIntercom: {fileID: 0}
   CrewQuartersIntercom: {fileID: 0}
-  StorageIntercom: {fileID: 0}
+  EngineRoomIntercom: {fileID: 0}
   uiManager: {fileID: 0}
+--- !u!114 &2346524766105954743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944374602343852353}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d6ff24b32e28e4aaff12e8bc10c22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CrewMemberPrefab: {fileID: 8825388037226562452, guid: 2254832200f79284ab169b8f37d5b1f5, type: 3}
+  CrewMemberPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CrewMemberSprites:
+  - {fileID: 21300000, guid: 4154de3ddf5d4004f8bcddf24b99be39, type: 3}
+  - {fileID: 21300000, guid: 9b656e1b1f74ea64eb6b18e0451dc3fa, type: 3}
+  - {fileID: 21300000, guid: 237199ac0af02a44bbba1c0fc51f3e54, type: 3}

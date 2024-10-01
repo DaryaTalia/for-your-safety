@@ -11,6 +11,23 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     [TextArea(2, 5)]
     List<string> MainDeckDialogue;
+
+    [SerializeField]
+    [TextArea(2, 5)]
+    List<string> AirlockDialogue;
+
+    [SerializeField]
+    [TextArea(2, 5)]
+    List<string> CrewQuartersDialogue;
+
+    [SerializeField]
+    [TextArea(2, 5)]
+    List<string> StorageRoomDialogue;
+
+    [SerializeField]
+    [TextArea(2, 5)]
+    List<string> EngineRoomDialogue;
+
     int dialogueDelay = 3;
 
     private void OnTriggerEnter(Collider other)
