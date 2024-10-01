@@ -11,11 +11,11 @@ public class IntercomScript : MonoBehaviour
     [TextArea(2, 5)]
     List<string> IntercomDialogue;
     int index;
-    int dialogueDelay = 4;
+    int dialogueDelay = 2;
 
     bool ringing;
     bool ringCooldown;
-    int ringTimer = 5;
+    int ringTimer = 3;
 
     public bool Ringing
     {
@@ -46,8 +46,9 @@ public class IntercomScript : MonoBehaviour
     {
         // Destroy Audio Device to end ringing
         ringing = false;
+        ringCooldown = false;
         GameManager.Instance.uiManager.UpdateIntercomText(" ");
-        StopCoroutine(Ring());
+        StopAllCoroutines();
         DisplayDialogue();
     }
 

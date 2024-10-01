@@ -11,6 +11,12 @@ TagManager:
   - Intercom
   - Door
   - Wrench
+  - Keycard
+  - MAIN_DECK
+  - AIRLOCK
+  - CREW_QUARTERS
+  - STORAGE_ROOM
+  - ENGINE_ROOM
   layers:
   - Default
   - TransparentFX

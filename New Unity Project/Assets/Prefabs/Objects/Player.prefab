@@ -271,12 +271,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c596db4bfedb314f8bf2fd89c8885c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e17ea732-ac71-4c29-ab10-cb13bd22396a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  lookAction:
+    m_Name: Look
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7d46470c-c360-4743-a3a4-33677afbaecb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   moveSpeed: 5
-  lookSpeed: 100
   standingBody: {fileID: 7372831302747431848}
   crouchingBody: {fileID: 2854735545163846025}
   standingHead: {fileID: 2143217403095285843}
   crouchingHead: {fileID: 5326883462534813740}
+  cameraTransform: {fileID: 0}
 --- !u!114 &4434837888623251716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 303973767461665982}
+  MainDeckDialogue: []
 --- !u!65 &7815395442554058685
 BoxCollider:
   m_ObjectHideFlags: 0

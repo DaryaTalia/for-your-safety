@@ -27,6 +27,20 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        // Keycard
+        if(other.gameObject.CompareTag("Keycard"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            other.gameObject.GetComponentInChildren<ItemCanvasUI>().gameObject.SetActive(true);
+
+            controller.SetNewTarget(other, "Keycard");
+
+            StartCoroutine(Reset());
+            return;
+        }
+
         // Gun
         if (other.gameObject.CompareTag("Gun"))
         {
@@ -176,7 +190,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void StopMainDeckDialogue()
     {
-        StopCoroutine(Speak("", 0));
+        StopAllCoroutines();
     }
 
     IEnumerator Speak(string message, int delay)

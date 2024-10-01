@@ -25,16 +25,6 @@ public class InteractionController : MonoBehaviour
 
                 break;
 
-            case "KeyCard":
-
-                GameManager.Instance.keyFound = true;
-                GameManager.Instance.uiManager.GetInventoryPanelController().AddNewItem(targetKey);
-                Destroy(target.gameObject);
-
-                ClearTarget();
-
-                break;
-
             case "Gun":
 
                 GameManager.Instance.gunFound = true;
@@ -44,19 +34,10 @@ public class InteractionController : MonoBehaviour
 
                 break;
 
-            case "Wrench":
-
-                GameManager.Instance.wrenchFound = true;
-                GameManager.Instance.uiManager.GetInventoryPanelController().AddNewItem(targetKey);
-                Destroy(target.gameObject);
-
-                ClearTarget();
-
-                break;
-
             case "Button":
 
-                target.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
+                //target.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
+                GameManager.Instance.EnterNextState();
 
                 ClearTarget();
 
@@ -79,8 +60,9 @@ public class InteractionController : MonoBehaviour
                     return;
                 }
 
-                target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
+                //target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
                 Debug.Log("Invoking Intercom Action Delegate");
+                GameManager.Instance.EnterNextState();
                 break;
 
 

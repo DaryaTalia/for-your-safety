@@ -5,6 +5,9 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
     [SerializeField]
+    new string name;
+
+    [SerializeField]
     bool locked;
 
     [SerializeField]
@@ -58,6 +61,17 @@ public class DoorScript : MonoBehaviour
         {
             anim.SetTrigger("CloseDoor");
             waiting = false;
+
+            switch(name)
+            {
+                case "Airlock Entry":
+                    GameManager.Instance.EnterNextState();
+                    break;
+
+                default:
+                    Debug.Log("Invalid Name");
+                    break;
+            }
         }
     }
 

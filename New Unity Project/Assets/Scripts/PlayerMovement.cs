@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    CharacterController playerController;
     PlayerInput playerInput;
-    InputAction moveAction;
-    InputAction lookAction;
+    public InputAction moveAction;
+    public InputAction lookAction;
     [SerializeField]
     float moveSpeed = 5f;
-    [SerializeField]
-    float lookSpeed = 10f;
 
     bool isCrouching;
 
@@ -23,38 +23,58 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject crouchingHead;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    Transform cameraTransform;
+
+    private static PlayerMovement _instance = null;
+
+    public static PlayerMovement Instance
     {
+        get => _instance;
+    }
+    private void Awake()
+    {
+        if (_instance != null & _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
         playerInput = GetComponent<PlayerInput>();
-        if(playerInput != null)
+        if (playerInput != null)
         {
             moveAction = playerInput.actions.FindAction("Move");
             lookAction = playerInput.actions.FindAction("Look");
-        } else
+        }
+        else
         {
             Debug.LogWarning("Player Input not set");
         }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        cameraTransform = Camera.main.transform;
+    }
+
+    private void FixedUpdate()
     {
         OnMove();
-        OnLook();
     }
 
     void OnMove()
     {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
-        Vector3 forwardMovement = transform.forward * direction.y * moveSpeed * Time.deltaTime;
-        transform.Translate(forwardMovement, Space.World);
-    }
+        Vector2 movement = moveAction.ReadValue<Vector2>();
+        Vector3 move = new Vector3( movement.x, 0, movement.y);
 
-    void OnLook()
-    {
-        float rotation = lookAction.ReadValue<float>();
-        transform.Rotate(Vector3.up, rotation * lookSpeed * Time.deltaTime);
+        move = cameraTransform.forward * move.z  +  cameraTransform.right * move.x;
+
+        playerController.Move(move * Time.deltaTime * moveSpeed);
     }
 
     void OnCrouch()
