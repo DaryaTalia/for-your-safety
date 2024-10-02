@@ -6,13 +6,11 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField]
     int health = 3;
-    [SerializeField]
-    float speed = .05f;
+    float speed = .2f;
 
-    Vector3 target;
-    float distanceSensitivity = 4f;
-    float attackSensitivity = 1f;
-    float AttackCooldown = 3;
+    float distanceSensitivity = 5f;
+    float attackSensitivity = 3f;
+    float AttackCooldown = 5;
     bool canAttack;
 
     [SerializeField]
@@ -23,7 +21,6 @@ public class EnemyBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameManager.Instance.Player.gameObject.transform.position;
         canAttack = true;
 
         mainCamera = Camera.main;
@@ -32,17 +29,26 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distFromPlayer = Vector3.Distance(transform.position, target);
+        float distFromPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.gameObject.transform.position);
 
-        if (distFromPlayer >= distanceSensitivity)
-        {
-            transform.position = Vector3.Lerp(transform.position, target,speed * Time.deltaTime);
+        if (distFromPlayer >= attackSensitivity)
+        {    
+            if (distFromPlayer <= distanceSensitivity)
+            {
+                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed/3 * Time.deltaTime);
+
+                if (canAttack)
+                {
+                    AttackPlayer();
+                }
+            }
         }
 
-        if (distFromPlayer <= attackSensitivity && canAttack)
-        {
-            AttackPlayer();
-        }
+        
     }
 
     void LateUpdate()

@@ -67,7 +67,6 @@ public class IntercomScript : MonoBehaviour
     void DisplayDialogue()
     {
         int order = 0;
-        IntercomDialogue.Add(" ");
         foreach(string text in IntercomDialogue)
         {
             StartCoroutine(DialogueIterator(text, dialogueDelay * order++));
@@ -86,7 +85,16 @@ public class IntercomScript : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameManager.Instance.uiManager.UpdateObjectiveText(ObjectiveDialogue);
 
+        if(GameManager.Instance.currentState == GameManager.GameStates.MAIN_DECK_INTERCOM_ANSWERED)
+        {
+            GameManager.Instance.SpawnKeycard();
+            Destroy(this, 2f);
+        }
+
         if(GameManager.Instance.currentState == GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED)
+        {
             GameManager.Instance.storageRoomDialogueComplete = true;
+            Destroy(this, 2f);
+        }
     }
 }

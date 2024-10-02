@@ -13,10 +13,7 @@ public class CrewMemberRandomizer : MonoBehaviour
     [SerializeField]
     List<Sprite> CrewMemberSprites;
 
-    [SerializeField]
-    CrewQuartersKey crewQuartersKey;
-
-    int crewDiscovered;
+    static int crewDiscovered;
 
     [SerializeField]
     [TextArea(2, 5)]
@@ -37,24 +34,22 @@ public class CrewMemberRandomizer : MonoBehaviour
             crew.transform.localRotation = Quaternion.Euler(0, 0, 0);
             crew.GetComponentInChildren<SpriteRenderer>().sprite = CrewMemberSprites[Random.Range(0, CrewMemberSprites.Count)];
         }
-
-        crewQuartersKey.enabled = true;
     }
 
-    public void ToggleNextText()
+    public void ToggleNextText(Collider crew)
     {
-        if(gameObject.GetComponentInChildren<TextMeshProUGUI>(true))
+        if(crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true))
         {
-            gameObject.GetComponentInChildren<TextMeshProUGUI>(true).enabled = true;
+            crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true).gameObject.SetActive(true);
             Debug.Log(crewTextList[crewDiscovered]);
-            gameObject.GetComponentInChildren<TextMeshProUGUI>(true).text = crewTextList[crewDiscovered];
+            crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true).text = crewTextList[crewDiscovered];
             crewDiscovered++;
-            gameObject.GetComponentInChildren<BoxCollider>().enabled = false;
-            Destroy(gameObject.GetComponentInChildren<TextMeshProUGUI>().gameObject, 3);
+            crew.gameObject.GetComponentInChildren<BoxCollider>().enabled = false;
+            Destroy(crew.gameObject.GetComponentInChildren<TextMeshProUGUI>().gameObject, 7);
 
             if(crewDiscovered >= 4)
             {
-                Instantiate(GameManager.Instance.KeycardPrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                Instantiate(GameManager.Instance.KeycardPrefab, crew.gameObject.transform.position, Quaternion.identity, crew.gameObject.transform);
             }
         }        
     }

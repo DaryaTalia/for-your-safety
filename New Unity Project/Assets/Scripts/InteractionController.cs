@@ -13,7 +13,7 @@ public class InteractionController : MonoBehaviour
         switch(targetKey)
         {
             case "CrewMember":
-                GameManager.Instance.gameObject.GetComponent<CrewMemberRandomizer>().ToggleNextText();
+                GameManager.Instance.gameObject.GetComponent<CrewMemberRandomizer>().ToggleNextText(target);
 
                 ClearTarget();
 
@@ -32,6 +32,7 @@ public class InteractionController : MonoBehaviour
             case "Gun":
 
                 GameManager.Instance.gunFound = true;
+                GameManager.Instance.PlayerArm.SetActive(true);
                 Destroy(target.gameObject);
 
                 ClearTarget();
@@ -66,6 +67,9 @@ public class InteractionController : MonoBehaviour
                 Debug.Log("Invoking Intercom Action Delegate");
                 target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
                 target.GetComponent<IntercomScript>().ActionDelegate = null;
+
+                ClearTarget();
+
                 break;
 
 

@@ -29,11 +29,11 @@ public partial class @MyControls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""4719778b-7371-4a90-87c8-8eee0bc16c47"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=0.3,pressPoint=0.1)"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -172,7 +172,7 @@ public partial class @MyControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""4a84fa40-9fa9-4ce7-bcd2-610d309fdd4e"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -39,11 +39,20 @@ public class PlayerGun : MonoBehaviour
 
         Debug.Log("Shoot");
         timer = cooldown;
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.blue, 15f);
+        Debug.DrawRay(GameManager.Instance.GunshotPoint.position,
+            Camera.main.transform.forward * 10, 
+            Color.blue, 15f);
 
         RaycastHit result;
 
-        bool hit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out result, range, enemyMask);
+        bool hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
+            Camera.main.transform.forward, 
+            out result, range, enemyMask);
+
+        if(GameManager.Instance.PlayerArm.activeSelf)
+        {
+            GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
+        }        
         
         if (hit)
         {

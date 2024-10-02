@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
         set => gamePaused = value;
     }
 
+    [SerializeField]
+    List<GameObject> playerObjects;
+    [SerializeField]
+    List<Behaviour> playerBehaviours;
+
 
     [SerializeField]
     public GameObject KeycardPrefab;
@@ -95,6 +100,9 @@ public class GameManager : MonoBehaviour
     {
         get => playerMovement;
     }
+
+    public GameObject PlayerArm;
+    public Transform GunshotPoint;
 
     [SerializeField]
     int health = 3;
@@ -174,7 +182,14 @@ public class GameManager : MonoBehaviour
 
         // UI & Player
         uiManager.StartMainMenuUI();
-        Player.gameObject.SetActive(false);
+        foreach(GameObject go in playerObjects)
+        {
+            go.SetActive(false);
+        }
+        foreach(Behaviour be in playerBehaviours)
+        {
+            be.enabled = false;
+        }
 
         // Crew Randomizer
         crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
@@ -217,13 +232,26 @@ public class GameManager : MonoBehaviour
         {
             EnterNextState();
         } else
+        if ( currentLocation == Locations.CREW_QUARTERS && 
+            currentState == GameStates.CREW_QUARTERS_CHASE &&
+            keyFound)
+        {
+            EnterNextState();
+        }  else
         if ( currentLocation == Locations.STORAGE_ROOM && 
             currentState == GameStates.CREW_QUARTERS_KEY_OBTAINED)
         {
             EnterNextState();
         } else
         if ( currentLocation == Locations.STORAGE_ROOM && 
-            currentState == GameStates.STORAGE_ROOM_CHASE)
+            currentState == GameStates.STORAGE_ROOM_ENTERED
+            && gunFound)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.STORAGE_ROOM && 
+            currentState == GameStates.STORAGE_ROOM_CHASE
+            && keyFound)
         {
             EnterNextState();
         } else
@@ -435,7 +463,14 @@ public class GameManager : MonoBehaviour
         }
 
         // Enable Player
-        Player.gameObject.SetActive(true);
+        foreach (GameObject go in playerObjects)
+        {
+            go.SetActive(true);
+        }
+        foreach (Behaviour be in playerBehaviours)
+        {
+            be.enabled = true;
+        }
 
         // Initialize Crew Members
         crewMemberRandomizer.enabled = true;
@@ -455,7 +490,7 @@ public class GameManager : MonoBehaviour
         // Start First Task
         MainDeckIntercom.Ringing = true;
 
-        MainDeckIntercom.GetComponent<ItemGlow>().SetActive();
+        MainDeckIntercom.GetComponentInChildren<ItemGlow>().SetActive();
     }
 
     private void HandleMainDeckIntercomAnswered()
@@ -465,11 +500,14 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckIntercom.Answer();
-        GameObject keycard = Instantiate(KeycardPrefab);
-        //keycard.transform.position = MDKeycardLocation.position;
-        keycard.transform.localPosition = MDKeycardLocation.position;
 
-        MainDeckIntercom.GetComponent<ItemGlow>().SetInactive();
+        MainDeckIntercom.GetComponentInChildren<ItemGlow>().SetInactive();
+    }
+
+    public void SpawnKeycard()
+    {
+        GameObject keycard = Instantiate(KeycardPrefab);
+        keycard.transform.localPosition = MDKeycardLocation.position;
     }
 
     private void HandleMainDeckKeyCardCollected()
@@ -495,9 +533,9 @@ public class GameManager : MonoBehaviour
         // Start Third Task
         Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayAirlockDialogue();
 
-        GameManager.Instance.uiManager.GetInventoryPanelController().RemoveItem("Key");
+        uiManager.GetInventoryPanelController().RemoveItem("Key");
 
-        AirlockIntercom.GetComponent<ItemGlow>().SetActive();
+        AirlockIntercom.GetComponentInChildren<ItemGlow>().SetActive();
     }
 
     private void HandleAirlockIntercomAnswered()
@@ -550,7 +588,7 @@ public class GameManager : MonoBehaviour
         // Start Second Task
         AirlockDoor.Lock();
 
-        CrewQuartersIntercom.GetComponent<ItemGlow>().SetActive();
+        CrewQuartersIntercom.GetComponentInChildren<ItemGlow>().SetActive();
     }
 
     private void HandleCrewQuartersIntercomAnswered()
@@ -566,7 +604,7 @@ public class GameManager : MonoBehaviour
         // Start Third Task
         NextRespawnPoint();
 
-        CrewQuartersIntercom.GetComponent<ItemGlow>().SetInactive();
+        CrewQuartersIntercom.GetComponentInChildren<ItemGlow>().SetInactive();
     }
 
     private void HandleFreezePlayerMovement()
@@ -607,12 +645,10 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         CrewQuartersDoor.gameObject.AddComponent<AudioSource>();
-        CrewQuartersDoor.gameObject.GetComponent<AudioSource>().clip = doorBanging;
-        CrewQuartersDoor.gameObject.GetComponent<AudioSource>().Play();
+        //CrewQuartersDoor.gameObject.GetComponent<AudioSource>().clip = doorBanging;
+        //CrewQuartersDoor.gameObject.GetComponent<AudioSource>().Play();
 
-        // Start Third Task
-        NextRespawnPoint();
-        keyFound = false;
+        uiManager.GetInventoryPanelController().RemoveItem("Key");
     }
     
     private void HandleStorageRoomChase()
@@ -641,11 +677,12 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         EngineRoomIntercom.Answer();
+        keyFound = false;
 
         // Start Third Task
         NextRespawnPoint();
 
-        engineRoomWindow.GetComponent<ItemGlow>().SetActive();
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().SetActive();
     }
 
     private void HandleEngineRoomPortalOpened()

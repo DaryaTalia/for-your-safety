@@ -58,13 +58,31 @@ public class FirstPersonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Look
         if (lookInput != Vector2.zero)
         {
             RotateCamera();
             RotateCharacter();
-        }
+        } 
 
-        MoveCharacter();        
+        // Move
+        if (moveInput != Vector2.zero)
+        {
+            MoveCharacter();
+
+            if (GameManager.Instance.PlayerArm.activeSelf)
+            {
+                GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetBool("isMoving", true);
+            }
+        }
+        else
+        {
+            if (GameManager.Instance.PlayerArm.activeSelf)
+            {
+                GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetBool("isMoving", false);
+            }
+            
+        }
     }
 
     void RotateCamera()

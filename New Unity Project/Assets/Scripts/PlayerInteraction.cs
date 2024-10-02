@@ -40,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
 
     int dialogueDelay = 3;
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         // Crew
         if (other.gameObject.CompareTag("CrewMember"))

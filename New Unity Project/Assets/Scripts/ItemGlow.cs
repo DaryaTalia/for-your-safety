@@ -27,7 +27,6 @@ public class ItemGlow : MonoBehaviour
                 ToggleGlow();
                 timer = 0;
             }
-            Debug.Log(timer);
         }
     }
 

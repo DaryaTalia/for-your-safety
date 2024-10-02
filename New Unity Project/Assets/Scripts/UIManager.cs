@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -36,16 +37,17 @@ public class UIManager : MonoBehaviour
 
     void OnAwake()
     {
-        EnableMainMenuPanel();
-        EnableCreditsPanel();
-        DisableCreditsPanel();
-        DisableGameplayPanel();
+        StartMainMenuUI();
     }
 
     public void StartMainMenuUI()
     {
         EnableMainMenuPanel();
+
+        DisableCreditsPanel();
         DisableGameplayPanel();
+        DisableIntroSequencePanel();
+        DisablePausePanel();
     }
 
     public void StartIntroSequence()
