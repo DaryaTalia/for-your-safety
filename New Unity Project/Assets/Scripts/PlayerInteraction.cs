@@ -11,26 +11,36 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     [TextArea(2, 5)]
     List<string> MainDeckDialogue;
+    [SerializeField]
+    string MainDeckObjective;
 
     [SerializeField]
     [TextArea(2, 5)]
     List<string> AirlockDialogue;
+    [SerializeField]
+    string AirlockObjective;
 
     [SerializeField]
     [TextArea(2, 5)]
     List<string> CrewQuartersDialogue;
+    [SerializeField]
+    string CrewQuartersObjective;
 
     [SerializeField]
     [TextArea(2, 5)]
     List<string> StorageRoomDialogue;
+    [SerializeField]
+    string StorageRoomObjective;
 
     [SerializeField]
     [TextArea(2, 5)]
     List<string> EngineRoomDialogue;
+    [SerializeField]
+    string EngineRoomObjective;
 
     int dialogueDelay = 3;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // Key
         if(other.gameObject.CompareTag("Key"))
@@ -162,8 +172,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        controller.ClearTarget();
-
         // Door
         if (other.gameObject.CompareTag("Door"))
         {
@@ -174,12 +182,7 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-            // Validate Animation State
-            if (!other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("DoorOpen"))
-            {
-                Debug.Log("Incorrect Animation State to Proceed.");
-                return;
-            }
+            controller.ClearTarget();
 
             other.gameObject.GetComponent<DoorScript>().Open = false;
             other.gameObject.GetComponent<DoorScript>().CloseDoor() ;
@@ -193,6 +196,12 @@ public class PlayerInteraction : MonoBehaviour
         isColliding = false;
     }
 
+    IEnumerator Speak(string message, int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.Instance.uiManager.UpdateProtagText(message);
+    }
+
     public void PlayMainDeckDialogue()
     {
         int order = 0;
@@ -202,24 +211,25 @@ public class PlayerInteraction : MonoBehaviour
         {
             StartCoroutine(Speak(text, dialogueDelay * order++));
         }
-        StartCoroutine(ContinueGameMainDeck1());
+        StartCoroutine(ContinueGameMainDeck());
     }
 
     public void StopMainDeckDialogue()
     {
+        GameManager.Instance.uiManager.UpdateProtagText(" ");
         StopAllCoroutines();
     }
 
-    IEnumerator Speak(string message, int delay)
+    IEnumerator ContinueGameMainDeck()
     {
-        yield return new WaitForSeconds(delay);
-        GameManager.Instance.uiManager.UpdateProtagText(message);
-    }
-
-    IEnumerator ContinueGameMainDeck1()
-    {
+        GameManager.Instance.uiManager.UpdateObjectiveText(MainDeckObjective);
         yield return new WaitForSeconds(MainDeckDialogue.Count * dialogueDelay - dialogueDelay * 2);
         GameManager.Instance.EnterNextState();
+    }
+
+    public void PlayAirlockDialogue()
+    {
+        GameManager.Instance.uiManager.UpdateObjectiveText(AirlockObjective);
     }
 
 }

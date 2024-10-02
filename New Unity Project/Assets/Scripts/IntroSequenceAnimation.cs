@@ -30,6 +30,10 @@ public class IntroSequenceAnimation : MonoBehaviour
     {
         if(fade)
         {
+            if(GetComponentInChildren<Camera>())
+            {
+                Destroy(GetComponentInChildren<Camera>());
+            }
             IntroBackground.CrossFadeAlpha(0, fadeDuration, false);
         }
     }

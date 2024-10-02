@@ -18,6 +18,7 @@ TagManager:
   - STORAGE_ROOM
   - ENGINE_ROOM
   - Entity
+  - CrewMember
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - Player
   - Interactable
-  - 
+  - PPV
   - 
   - 
   - 

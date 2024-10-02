@@ -10,8 +10,12 @@ public class IntercomScript : MonoBehaviour
     [SerializeField]
     [TextArea(2, 5)]
     List<string> IntercomDialogue;
+    [SerializeField]
+    string ObjectiveDialogue;
 
-    int dialogueDelay = 2;
+    List<Coroutine> activeCoroutines;
+
+    int dialogueDelay = 4;
     bool ringing;
     bool ringCooldown;
     int ringTimer = 3;
@@ -22,11 +26,16 @@ public class IntercomScript : MonoBehaviour
         set => ringing = value;
     }
 
+    private void Start()
+    {
+        activeCoroutines = new List<Coroutine>();
+    }
+
     private void FixedUpdate()
     {
         if(ringing && !ringCooldown)
         {
-            StartCoroutine(Ring());
+            activeCoroutines.Add(StartCoroutine(Ring()));
             ringCooldown = true;
         }
     }
@@ -47,6 +56,10 @@ public class IntercomScript : MonoBehaviour
         ringing = false;
         ringCooldown = false;
         GameManager.Instance.uiManager.UpdateProtagText(" ");
+        foreach(Coroutine cor in activeCoroutines)
+        {
+            StopCoroutine(cor);
+        }
         StopAllCoroutines();
         DisplayDialogue();
     }
@@ -59,11 +72,19 @@ public class IntercomScript : MonoBehaviour
         {
             StartCoroutine(DialogueIterator(text, dialogueDelay * order++));
         }
+        StartCoroutine(ObjectiveEnumerator(dialogueDelay * order));
     }
 
     IEnumerator DialogueIterator(string message, int delay)
     {
         yield return new WaitForSeconds(delay);
         GameManager.Instance.uiManager.UpdateProtagText(message);
+    }
+
+    IEnumerator ObjectiveEnumerator(int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.Instance.uiManager.UpdateObjectiveText(ObjectiveDialogue);
+        GameManager.Instance.storageRoomDialogueComplete = true;
     }
 }

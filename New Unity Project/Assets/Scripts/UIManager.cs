@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI LocationText;
     [SerializeField]
+    TextMeshProUGUI ObjectiveText;
+    [SerializeField]
     TextMeshProUGUI ProtagText;
 
     public InventoryPanelUI GetInventoryPanelController()
@@ -151,6 +153,11 @@ public class UIManager : MonoBehaviour
     public void UpdateLocationText(string locationText)
     {
         LocationText.text = locationText;
+    }
+
+    public void UpdateObjectiveText(string objectiveText)
+    {
+        ObjectiveText.text = objectiveText;
     }
 
     public void UpdateProtagText(string protagText)

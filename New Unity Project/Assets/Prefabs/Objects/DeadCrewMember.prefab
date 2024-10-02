@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6292423071163774128}
   - component: {fileID: 7493376132951420204}
+  - component: {fileID: 2474059504852086892}
+  - component: {fileID: 190582808877001458}
   m_Layer: 0
   m_Name: DeadCrewMember
   m_TagString: Untagged
@@ -85,6 +87,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2474059504852086892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8825388037226562452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ade3e4a0e6e966408fcf8c0012658a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemText: {fileID: 0}
+  text: 
+--- !u!65 &190582808877001458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8825388037226562452}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6390717601613679098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -176,6 +213,10 @@ PrefabInstance:
     - target: {fileID: 4473250631147183729, guid: 3807944659127d243bf28dadbd248a33, type: 3}
       propertyPath: m_Name
       value: ItemContextCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4473250631147183729, guid: 3807944659127d243bf28dadbd248a33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

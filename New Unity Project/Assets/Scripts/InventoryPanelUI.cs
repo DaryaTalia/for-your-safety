@@ -11,10 +11,6 @@ public class InventoryPanelUI : MonoBehaviour
 
     [SerializeField]
     Sprite keySprite;
-    [SerializeField]
-    Sprite wrenchSprite;
-    [SerializeField]
-    Sprite keycardSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -35,17 +31,6 @@ public class InventoryPanelUI : MonoBehaviour
                 newItem.GetComponentInChildren<Image>().sprite = keySprite;
                 Debug.Log("Add New Item: Success");
                 break;
-            case "Wrench":
-                newItem.name = "Wrench";
-                newItem.GetComponentInChildren<Image>().sprite = wrenchSprite;
-                Debug.Log("Add New Item: Success");
-                break;
-            case "KeyCard":
-                newItem.name = "KeyCard";
-                newItem.GetComponentInChildren<Image>().sprite = keycardSprite;
-                Debug.Log("Add New Item: Success");
-                break;
-
 
             default:
                 Debug.Log("Add New Item: Invalid Key");
@@ -63,15 +48,6 @@ public class InventoryPanelUI : MonoBehaviour
                 itemsInInventory.Remove(itemsInInventory.Find(go => go.name == "Key"));
                 Debug.Log("Remove Item: Success");
                 break;
-            case "Wrench":
-                itemsInInventory.Remove(itemsInInventory.Find(go => go.name == "Wrench"));
-                Debug.Log("Remove Item: Success");
-                break;
-            case "KeyCard":
-                itemsInInventory.Remove(itemsInInventory.Find(go => go.name == "KeyCard"));
-                Debug.Log("Remove Item: Success");
-                break;
-
 
             default:
                 Debug.Log("Remove Item: Invalid Key");

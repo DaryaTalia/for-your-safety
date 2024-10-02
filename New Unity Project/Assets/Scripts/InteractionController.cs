@@ -33,8 +33,7 @@ public class InteractionController : MonoBehaviour
 
             case "Button":
 
-                //target.GetComponent<ButtonScript>().ActionDelegate?.Invoke();
-                GameManager.Instance.EnterNextState();
+                target.GetComponentInChildren<ButtonScript>().ActionDelegate?.Invoke();
 
                 ClearTarget();
 
@@ -57,9 +56,9 @@ public class InteractionController : MonoBehaviour
                     return;
                 }
 
-                //target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
                 Debug.Log("Invoking Intercom Action Delegate");
-                GameManager.Instance.EnterNextState();
+                target.GetComponent<IntercomScript>().ActionDelegate?.Invoke();
+                target.GetComponent<IntercomScript>().ActionDelegate = null;
                 break;
 
 

@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemCanvasUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    TextMeshProUGUI itemText;
+    [SerializeField]
+    string text;
+
+    public void ShowText()
     {
-        
+        itemText.gameObject.SetActive(true);
+        itemText.text = text;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideText()
     {
-        
+        itemText.gameObject.SetActive(false);
     }
 }

@@ -24,8 +24,8 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   tonemapper:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 2
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -1332,10 +1332,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1.28
+    value: 1.27
   color:
     overrideState: 1
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 0.07918974, g: 0.036712356, b: 0.103773594, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -1350,7 +1350,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 3.06
+    value: 2.41
   zBias:
     overrideState: 0
     value: 0.0001
@@ -1400,21 +1400,21 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 0.07760548, g: 0.02256141, b: 0.122641504, a: 1}
   center:
     overrideState: 1
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.433
+    value: 0.563
   smoothness:
     overrideState: 1
-    value: 0.546
+    value: 0.266
   roundness:
     overrideState: 1
-    value: 0.234
+    value: 0.415
   rounded:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mask:
     overrideState: 0

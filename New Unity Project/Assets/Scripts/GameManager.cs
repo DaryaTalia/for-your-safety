@@ -70,11 +70,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject KeycardPrefab;
     [SerializeField]
-    GameObject MDKeycardLocation;
+    Transform MDKeycardLocation;
 
 
     public bool keyFound;
     public bool gunFound;
+
+    public bool storageRoomDialogueComplete;
 
     // Engine Room Buttons
     public bool Button1Pushed;
@@ -87,9 +89,9 @@ public class GameManager : MonoBehaviour
     Transform lastSavePoint;
 
     [SerializeField]
-    PlayerMovement playerMovement;
+    FirstPersonController playerMovement;
 
-    public PlayerMovement Player
+    public FirstPersonController Player
     {
         get => playerMovement;
     }
@@ -160,11 +162,6 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        if(playerMovement == null)
-        {
-            playerMovement = PlayerMovement.Instance;
-        }
     }
 
     void Start()
@@ -199,34 +196,43 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Event Listeners
-        if(keyFound && currentLocation == Locations.MAIN_DECK)
+        if ( keyFound && 
+            currentLocation == Locations.MAIN_DECK)
         {
-            //EnterNextState();
-        }
-        if( !MainDeckDoor.Open && currentLocation == Locations.AIRLOCK )
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.AIRLOCK && 
+            currentState == GameStates.MAIN_DECK_KEYCARD_COLLECTED)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.CREW_QUARTERS && 
+            currentState == GameStates.AIRLOCK_JETTISON_COMPLETE)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.CREW_QUARTERS && 
+            currentState == GameStates.CREW_QUARTERS_INTERCOM_ANSWERED &&
+            storageRoomDialogueComplete)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.STORAGE_ROOM && 
+            currentState == GameStates.CREW_QUARTERS_KEY_OBTAINED)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.STORAGE_ROOM && 
+            currentState == GameStates.STORAGE_ROOM_CHASE)
+        {
+            EnterNextState();
+        } else
+        if ( currentLocation == Locations.ENGINE_ROOM && 
+            currentState == GameStates.STORAGE_ROOM_ACCESS_CARD_OBTAINED)
         {
             EnterNextState();
         }
-        if( !AirlockDoor.Open && currentLocation == Locations.CREW_QUARTERS )
-        {
-            EnterNextState();
-        }
-        if (keyFound && currentLocation == Locations.CREW_QUARTERS)
-        {
-            //EnterNextState();
-        }
-        if ( !CrewQuartersDoor.Open && currentLocation == Locations.STORAGE_ROOM )
-        {
-            EnterNextState();
-        }
-        if (keyFound && currentLocation == Locations.STORAGE_ROOM)
-        {
-            //EnterNextState();
-        }
-        if ( !StorageDoor.Open && currentLocation == Locations.ENGINE_ROOM )
-        {
-            EnterNextState();
-        }
+         else
 
         // Alternate Endings
         if(Button1Pushed && Button2Pushed)
@@ -457,7 +463,9 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckIntercom.Answer();
-        Instantiate(KeycardPrefab, MDKeycardLocation.transform);
+        GameObject keycard = Instantiate(KeycardPrefab);
+        //keycard.transform.position = MDKeycardLocation.position;
+        keycard.transform.localPosition = MDKeycardLocation.position;
     }
 
     private void HandleMainDeckKeyCardCollected()
@@ -465,8 +473,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Main Deck Keycard Collected.");
 
         // Start First Task
-        Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckDoor.Unlock();
+        MainDeckDoor.NeedsKey = false;
+        keyFound = false;
     }
 
     private void HandleAirlockIntercomRinging()
@@ -478,7 +487,11 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         MainDeckDoor.Lock();
-        keyFound = false;
+
+        // Start Third Task
+        Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayAirlockDialogue();
+
+        GameManager.Instance.uiManager.GetInventoryPanelController().RemoveItem("Key");
     }
 
     private void HandleAirlockIntercomAnswered()
@@ -504,8 +517,9 @@ public class GameManager : MonoBehaviour
     IEnumerator HandleAirlockJettisonSequence()
     {
         ExternalAirlockDoor.Open = true;
+        ExternalAirlockDoor.GetComponent<Animator>().SetTrigger("OpenDoor");
         AirlockBody.AddComponent<Rigidbody>();
-        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.forward, ForceMode.Force);
+        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.left * 20, ForceMode.Impulse);
 
         yield return new WaitForSeconds(jettisonTimer);
 
@@ -513,6 +527,7 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         ExternalAirlockDoor.Open = false;
+        ExternalAirlockDoor.GetComponent<Animator>().SetTrigger("CloseDoor");
         AirlockDoor.Unlock();
     }
 
