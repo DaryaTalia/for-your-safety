@@ -42,27 +42,26 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // Key
-        if(other.gameObject.CompareTag("Key"))
+        // Crew
+        if (other.gameObject.CompareTag("CrewMember"))
         {
             if (isColliding) return;
             isColliding = true;
 
-            controller.SetNewTarget(other, "Key");
+            controller.SetNewTarget(other, "CrewMember");
 
             StartCoroutine(Reset());
             return;
         }
 
-        // Keycard
-        if(other.gameObject.CompareTag("Keycard"))
+
+        // Key
+        if (other.gameObject.CompareTag("Key"))
         {
             if (isColliding) return;
             isColliding = true;
 
-            other.gameObject.GetComponentInChildren<ItemCanvasUI>().gameObject.SetActive(true);
-
-            controller.SetNewTarget(other, "Keycard");
+            controller.SetNewTarget(other, "Key");
 
             StartCoroutine(Reset());
             return;
@@ -75,18 +74,6 @@ public class PlayerInteraction : MonoBehaviour
             isColliding = true;
 
             controller.SetNewTarget(other, "Gun");
-
-            StartCoroutine(Reset());
-            return;
-        }
-
-        // Wrench
-        if (other.gameObject.CompareTag("Wrench"))
-        {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "Wrench");
 
             StartCoroutine(Reset());
             return;

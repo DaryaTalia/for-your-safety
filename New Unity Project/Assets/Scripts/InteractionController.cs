@@ -12,6 +12,13 @@ public class InteractionController : MonoBehaviour
 
         switch(targetKey)
         {
+            case "CrewMember":
+                GameManager.Instance.gameObject.GetComponent<CrewMemberRandomizer>().ToggleNextText();
+
+                ClearTarget();
+
+                break;
+
             case "Key":
 
                 GameManager.Instance.keyFound = true;

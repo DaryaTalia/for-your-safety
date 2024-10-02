@@ -7,7 +7,7 @@ public class InventoryPanelUI : MonoBehaviour
 {
     [SerializeField]
     GameObject itemPrefab;
-    List<GameObject> itemsInInventory;
+    public List<GameObject> itemsInInventory;
 
     [SerializeField]
     Sprite keySprite;
@@ -45,7 +45,8 @@ public class InventoryPanelUI : MonoBehaviour
         switch (Key)
         {
             case "Key":
-                itemsInInventory.Remove(itemsInInventory.Find(go => go.name == "Key"));
+                Destroy(itemsInInventory.Find(go => go.name == "Key"));
+                itemsInInventory.Clear();
                 Debug.Log("Remove Item: Success");
                 break;
 

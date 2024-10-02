@@ -19,6 +19,7 @@ TagManager:
   - ENGINE_ROOM
   - Entity
   - CrewMember
+  - Window
   layers:
   - Default
   - TransparentFX

@@ -53,6 +53,7 @@ MonoBehaviour:
   MDKeycardLocation: {fileID: 0}
   keyFound: 0
   gunFound: 0
+  storageRoomDialogueComplete: 0
   Button1Pushed: 0
   Button2Pushed: 0
   WindowShot: 0
@@ -108,6 +109,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4154de3ddf5d4004f8bcddf24b99be39, type: 3}
   - {fileID: 21300000, guid: 9b656e1b1f74ea64eb6b18e0451dc3fa, type: 3}
   - {fileID: 21300000, guid: 237199ac0af02a44bbba1c0fc51f3e54, type: 3}
+  crewQuartersKey: {fileID: 8663193257301610895}
+  crewTextList:
+  - You rummage through the crewmates belongings, but the Access Card is nowhere
+    to be found.
+  - This body is severely damaged beyond recognition. Any Access Card is either lost
+    or destroyed.
+  - "After a thorough search, you come up empty-handed. There\u2019s no Access Card
+    on this corpse."
+  - Amidst the bloodstains and tattered uniform, you find a Storage Bay Access Card.
+    You take it.
 --- !u!114 &8663193257301610895
 MonoBehaviour:
   m_ObjectHideFlags: 0

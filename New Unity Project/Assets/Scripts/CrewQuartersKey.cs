@@ -15,7 +15,7 @@ public class CrewQuartersKey : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        randomCrew = Random.Range(0, CrewMemberPositions.Count);
-        Instantiate(KeycardPrefab, CrewMemberPositions[randomCrew].transform);        
+        //randomCrew = Random.Range(0, CrewMemberPositions.Count);
+        //Instantiate(KeycardPrefab, CrewMemberPositions[randomCrew].transform);        
     }
 }

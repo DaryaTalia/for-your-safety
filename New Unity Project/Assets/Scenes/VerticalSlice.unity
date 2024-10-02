@@ -1062,6 +1062,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee149d692a7305c46ada89802d8c18fd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0b39fcd7267d4774ebb9a70537666a23, type: 2}
     - target: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
       propertyPath: m_Name
       value: Intercom
@@ -1084,6 +1096,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 159262100}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 159262103}
   m_SourcePrefab: {fileID: 100100000, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
 --- !u!4 &159262095 stripped
 Transform:
@@ -1153,6 +1168,20 @@ MonoBehaviour:
   - '"I see you are in the Main Deck. For your safety, find the Engineering bay Key
     card to proceed"'
   ObjectiveDialogue: Find the Engineering Bay Key Card
+--- !u!114 &159262103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159262096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af0053e500bcf4b9573cc1ca0d6726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 2100000, guid: ee149d692a7305c46ada89802d8c18fd, type: 2}
+  glow: {fileID: 2100000, guid: 0b39fcd7267d4774ebb9a70537666a23, type: 2}
 --- !u!1 &230739681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,17 +2001,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19196805274e70049a93d454e0a5a539, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &299367423 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8663193257301610895, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
-  m_PrefabInstance: {fileID: 4315845577944789551}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67541308a1655d145bed39dcc48812bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &301780120
@@ -6897,7 +6915,7 @@ Transform:
   m_GameObject: {fileID: 747411151}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 7.870622, y: 1.6033025, z: 18.961277}
+  m_LocalPosition: {x: 7.870622, y: 1.6033025, z: 19.53}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -7191,6 +7209,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1684249733}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1684249736}
   m_SourcePrefab: {fileID: 100100000, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
 --- !u!4 &799394186 stripped
 Transform:
@@ -14146,6 +14167,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a21c6fdd4a2f0b44eace248d1e808035, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1637488847}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a21c6fdd4a2f0b44eace248d1e808035, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1637488850}
   m_SourcePrefab: {fileID: 100100000, guid: a21c6fdd4a2f0b44eace248d1e808035, type: 3}
 --- !u!4 &1637488842 stripped
 Transform:
@@ -14205,6 +14229,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8000002, y: 0.2, z: 0.8}
   m_Center: {x: -11.299999, y: 0.1, z: 0.4}
+--- !u!114 &1637488850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637488843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af0053e500bcf4b9573cc1ca0d6726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 2100000, guid: 29fcf3f024042bd45978b0fd94bc3571, type: 2}
+  glow: {fileID: 2100000, guid: 967750f1f67d51945ad37213c2774505, type: 2}
 --- !u!1 &1655278795
 GameObject:
   m_ObjectHideFlags: 0
@@ -14585,6 +14623,20 @@ MonoBehaviour:
   - 'Player: "What?"'
   - '"Hurry now, you are not alone."'
   ObjectiveDialogue: 'Find a Storage Bay access card '
+--- !u!114 &1684249736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684249727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af0053e500bcf4b9573cc1ca0d6726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 2100000, guid: ee149d692a7305c46ada89802d8c18fd, type: 2}
+  glow: {fileID: 2100000, guid: 0b39fcd7267d4774ebb9a70537666a23, type: 2}
 --- !u!1 &1708767411
 GameObject:
   m_ObjectHideFlags: 0
@@ -16532,6 +16584,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1868321043}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1868321046}
   m_SourcePrefab: {fileID: 100100000, guid: 8d14cca9108ae9943a17b3217af37d10, type: 3}
 --- !u!4 &1868321038 stripped
 Transform:
@@ -16595,6 +16650,20 @@ MonoBehaviour:
   - The crew quarters are locked down, an obstruction is in the airlock.
   - "For your safety please jettison out the obstruction.\r."
   ObjectiveDialogue: Press button to eject crew
+--- !u!114 &1868321046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868321039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af0053e500bcf4b9573cc1ca0d6726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 2100000, guid: ee149d692a7305c46ada89802d8c18fd, type: 2}
+  glow: {fileID: 2100000, guid: 0b39fcd7267d4774ebb9a70537666a23, type: 2}
 --- !u!1 &1875737712
 GameObject:
   m_ObjectHideFlags: 0
@@ -19857,7 +19926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065107691774404796}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewMember
   m_TagString: CrewMember
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -19982,7 +20051,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7279515473191540973}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewQuartersIntercom
   m_TagString: Intercom
   m_Icon: {fileID: 0}
@@ -20080,11 +20149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1648999060998278535}
   cameraTransform: {fileID: 551085764995069737}
-  mouseSensitivity: 30
+  mouseSensitivity: 40
   rotationLimit: 30
   standingHead: {fileID: 4470160473505841674}
   crouchingHead: {fileID: 3878189515026827875}
-  moveSpeed: 5
+  moveSpeed: 8
   standingBody: {fileID: 3860590652870602951}
   crouchingBody: {fileID: 825989597584419729}
 --- !u!114 &1648999060998278535
@@ -20194,7 +20263,7 @@ Transform:
   m_GameObject: {fileID: 533136419144541384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.13, y: 1, z: -14.503883}
+  m_LocalPosition: {x: -13.51, y: 1, z: -11.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20266,7 +20335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6743204875822767154}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewMember
   m_TagString: CrewMember
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -20444,7 +20513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8923117380731046527}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AirlockIntercom
   m_TagString: Intercom
   m_Icon: {fileID: 0}
@@ -20554,7 +20623,7 @@ Transform:
   m_GameObject: {fileID: 3176242877027955570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.06, y: 1, z: 5.54}
+  m_LocalPosition: {x: 6.06, y: 1.1, z: 5.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20637,7 +20706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6899003666523234436}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: MainDeckIntercom
   m_TagString: Intercom
   m_Icon: {fileID: 0}
@@ -20744,10 +20813,6 @@ PrefabInstance:
       propertyPath: savePoints.Array.data[4]
       value: 
       objectReference: {fileID: 1305577813454903231}
-    - target: {fileID: 2346524766105954743, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
-      propertyPath: crewQuartersKey
-      value: 
-      objectReference: {fileID: 299367423}
     - target: {fileID: 2346524766105954743, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
       propertyPath: CrewMemberPositions.Array.data[0]
       value: 
@@ -20877,7 +20942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8964901400108216248}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewMember
   m_TagString: CrewMember
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -21458,7 +21523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6989512063959522737}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewMember
   m_TagString: CrewMember
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -21545,7 +21610,7 @@ Transform:
   m_GameObject: {fileID: 2264961324123063193}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 1, z: -22.783884}
+  m_LocalPosition: {x: 9.92, y: 1, z: -23.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21560,7 +21625,7 @@ Transform:
   m_GameObject: {fileID: 7442541224414407867}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.81, y: 1, z: 2.33}
+  m_LocalPosition: {x: 1.81, y: 1.1, z: 2.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21639,7 +21704,7 @@ Transform:
   m_GameObject: {fileID: 6141826854006199268}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.93, y: 1, z: -19.393883}
+  m_LocalPosition: {x: -14.93, y: 1, z: -20.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21806,7 +21871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8994913288187793426}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CrewMember
   m_TagString: CrewMember
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -22030,7 +22095,7 @@ Transform:
   m_GameObject: {fileID: 4693000210557829491}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9659929, y: 1, z: -21.233883}
+  m_LocalPosition: {x: -1.9659929, y: 1, z: -19.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22045,7 +22110,7 @@ Transform:
   m_GameObject: {fileID: 8126898813262916206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.240001, y: 1, z: -16.943884}
+  m_LocalPosition: {x: 10, y: 1, z: -16.943884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

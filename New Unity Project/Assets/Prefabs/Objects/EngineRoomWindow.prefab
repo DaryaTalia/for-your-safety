@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5256519769953091758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EngineRoomWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,13 +84,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glass
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
+      propertyPath: m_TagString
+      value: Window
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6725601133772852332}
   m_SourcePrefab: {fileID: 100100000, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
 --- !u!4 &3855399480366184131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
   m_PrefabInstance: {fileID: 3606143172411838760}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4524694625881156729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f31a97eb20c8cc4583da3e734c70978, type: 3}
+  m_PrefabInstance: {fileID: 3606143172411838760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6725601133772852332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524694625881156729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af0053e500bcf4b9573cc1ca0d6726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 2100000, guid: 517ae1fbed0da044e92051620e8ced22, type: 2}
+  glow: {fileID: 2100000, guid: 5aedb9b18c3c6b948bb5ffd33c2b6ec0, type: 2}

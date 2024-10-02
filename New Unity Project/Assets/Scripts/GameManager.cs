@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField]
-    GameObject KeycardPrefab;
+    public GameObject KeycardPrefab;
     [SerializeField]
     Transform MDKeycardLocation;
 
@@ -454,6 +454,8 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         MainDeckIntercom.Ringing = true;
+
+        MainDeckIntercom.GetComponent<ItemGlow>().SetActive();
     }
 
     private void HandleMainDeckIntercomAnswered()
@@ -466,6 +468,8 @@ public class GameManager : MonoBehaviour
         GameObject keycard = Instantiate(KeycardPrefab);
         //keycard.transform.position = MDKeycardLocation.position;
         keycard.transform.localPosition = MDKeycardLocation.position;
+
+        MainDeckIntercom.GetComponent<ItemGlow>().SetInactive();
     }
 
     private void HandleMainDeckKeyCardCollected()
@@ -492,6 +496,8 @@ public class GameManager : MonoBehaviour
         Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayAirlockDialogue();
 
         GameManager.Instance.uiManager.GetInventoryPanelController().RemoveItem("Key");
+
+        AirlockIntercom.GetComponent<ItemGlow>().SetActive();
     }
 
     private void HandleAirlockIntercomAnswered()
@@ -504,6 +510,8 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         NextRespawnPoint();
+
+        AirlockIntercom.GetComponent<ItemGlow>().SetInactive();
     }
 
     private void HandleAirlockJettisonComplete()
@@ -519,7 +527,8 @@ public class GameManager : MonoBehaviour
         ExternalAirlockDoor.Open = true;
         ExternalAirlockDoor.GetComponent<Animator>().SetTrigger("OpenDoor");
         AirlockBody.AddComponent<Rigidbody>();
-        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.left * 20, ForceMode.Impulse);
+        AirlockBody.GetComponent<Rigidbody>().useGravity = false;
+        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.left * 15, ForceMode.Impulse);
 
         yield return new WaitForSeconds(jettisonTimer);
 
@@ -540,6 +549,8 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         AirlockDoor.Lock();
+
+        CrewQuartersIntercom.GetComponent<ItemGlow>().SetActive();
     }
 
     private void HandleCrewQuartersIntercomAnswered()
@@ -554,6 +565,8 @@ public class GameManager : MonoBehaviour
 
         // Start Third Task
         NextRespawnPoint();
+
+        CrewQuartersIntercom.GetComponent<ItemGlow>().SetInactive();
     }
 
     private void HandleFreezePlayerMovement()
@@ -569,7 +582,7 @@ public class GameManager : MonoBehaviour
         HandleUnfreezePlayerMovement();
 
         //Start Second Task
-        Instantiate(minion, minionSpawnCQ.transform);
+        Instantiate(minion, minionSpawnCQ.transform.position, Quaternion.identity);
     }
 
     private void HandleUnfreezePlayerMovement()
@@ -631,6 +644,8 @@ public class GameManager : MonoBehaviour
 
         // Start Third Task
         NextRespawnPoint();
+
+        engineRoomWindow.GetComponent<ItemGlow>().SetActive();
     }
 
     private void HandleEngineRoomPortalOpened()

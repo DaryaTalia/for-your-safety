@@ -85,6 +85,8 @@ public class IntercomScript : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         GameManager.Instance.uiManager.UpdateObjectiveText(ObjectiveDialogue);
-        GameManager.Instance.storageRoomDialogueComplete = true;
+
+        if(GameManager.Instance.currentState == GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED)
+            GameManager.Instance.storageRoomDialogueComplete = true;
     }
 }

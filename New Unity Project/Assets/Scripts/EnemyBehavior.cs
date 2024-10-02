@@ -7,7 +7,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField]
     int health = 3;
     [SerializeField]
-    int speed = 2;
+    float speed = .05f;
 
     Vector3 target;
     float distanceSensitivity = 4f;
@@ -18,11 +18,15 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField]
     GameObject KeycardPrefab;
 
+    Camera mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         target = GameManager.Instance.Player.gameObject.transform.position;
         canAttack = true;
+
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -39,6 +43,11 @@ public class EnemyBehavior : MonoBehaviour
         {
             AttackPlayer();
         }
+    }
+
+    void LateUpdate()
+    {
+        transform.rotation = mainCamera.transform.rotation;
     }
 
     IEnumerator AttackPlayer()
