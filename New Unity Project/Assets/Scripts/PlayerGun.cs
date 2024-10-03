@@ -22,7 +22,14 @@ public class PlayerGun : MonoBehaviour
         if(GameManager.Instance.gunFound && timer > 0)
         {
             timer -= 1 * Time.deltaTime;
+
+            GameManager.Instance.uiManager.UpdateGunCooldownSlider(timer / cooldown);
         }
+    }
+
+    public float Cooldown
+    {
+        get => cooldown;
     }
 
     // Left Mouse Click to call 

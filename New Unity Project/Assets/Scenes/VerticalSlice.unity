@@ -773,26 +773,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87493143}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 088377e9677303d49a9432183691fd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActionDelegate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299367420}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EnterNextState
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   active: 0
 --- !u!1 &100585962 stripped
 GameObject:
@@ -1307,7 +1295,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2181,7 +2169,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -7099,7 +7087,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -13863,7 +13851,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -15050,7 +15038,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -16365,7 +16353,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -19587,26 +19575,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036334538}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 088377e9677303d49a9432183691fd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActionDelegate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299367420}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EnterNextState
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   active: 0
 --- !u!1 &2044534477
 GameObject:
@@ -20814,7 +20790,7 @@ GameObject:
   - component: {fileID: 2065107691774404796}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: CrewMember
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21230,7 +21206,7 @@ GameObject:
   - component: {fileID: 6743204875822767154}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: CrewMember
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21244,7 +21220,7 @@ Transform:
   m_GameObject: {fileID: 4470160473505841674}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21438,7 +21414,7 @@ Transform:
   m_GameObject: {fileID: 9188239382482027347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.87, y: 1.4423515, z: -3.31}
+  m_LocalPosition: {x: -9.68, y: 1.4423515, z: -3.31}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -21693,6 +21669,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 406301508}
     - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
+      propertyPath: engineRoomButton1
+      value: 
+      objectReference: {fileID: 87493143}
+    - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
+      propertyPath: engineRoomButton2
+      value: 
+      objectReference: {fileID: 2036334538}
+    - target: {fileID: 2053984983542586245, guid: f8ae6de686f2a534ea63940092d20023, type: 3}
       propertyPath: EngineRoomIntercom
       value: 
       objectReference: {fileID: 1435635347342649412}
@@ -21895,7 +21879,7 @@ GameObject:
   - component: {fileID: 8964901400108216248}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: CrewMember
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22100,6 +22084,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 299367420}
+    - target: {fileID: 3419638801120015297, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3419638801120015297, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4046852439343489090, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -22196,6 +22188,38 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6272633634917548355, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 299367420}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_GamePaused
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085172641539534288, guid: 97c123f839a6e1345898540055e07f9c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22212,7 +22236,7 @@ GameObject:
   - component: {fileID: 6989512063959522737}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: CrewMember
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22589,7 +22613,7 @@ GameObject:
   - component: {fileID: 8994913288187793426}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: CrewMember
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22708,8 +22732,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &8547377014902649687
 GameObject:
   m_ObjectHideFlags: 0

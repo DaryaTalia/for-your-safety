@@ -229,6 +229,7 @@ public class GameManager : MonoBehaviour
             case GameStates.MAIN_DECK_START:
                 HandleMainDeckStart();
                 break;
+
             case GameStates.INTRO_SEQUENCE:
                 HandleIntroSequence();
                 break;
@@ -335,6 +336,7 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         --health;
+        uiManager.GetGameplayPanelController().GetComponent<Animator>().SetTrigger("hurt");
         CheckDeath();
     }
 
@@ -365,7 +367,9 @@ public class GameManager : MonoBehaviour
         lastState = GameStates.MAIN_MENU;
 
         // UI & Player
-        uiManager.StartMainMenuUI();
+
+        Player.gameObject.transform.position = savePoints[0].position;
+
         foreach (GameObject go in playerObjects)
         {
             go.SetActive(false);
@@ -375,16 +379,38 @@ public class GameManager : MonoBehaviour
             be.enabled = false;
         }
 
+        PlayerArm.SetActive(false);
+
         keyFound = false;
         gunFound = false;
 
+        crewQuartersDialogueComplete = false;
+
+        Button1Pushed = false;
+        Button2Pushed = false;
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
+
         // Crew Randomizer
-        crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
+        if (crewMemberRandomizer == null)
+            crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
+
+        GameObject[] crew = GameObject.FindGameObjectsWithTag("CrewMember");
+
+        if(crew.Length > 1)
+        {
+            foreach(GameObject go in crew)
+            {
+                Destroy(go);
+            }
+        }
 
         // Enemy
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            go.SetActive(false);
+            Destroy(go);
         }
 
         // Save States
@@ -394,7 +420,14 @@ public class GameManager : MonoBehaviour
         }
         lastSavePoint = savePoints[0];
 
-        Player.gameObject.transform.position = lastSavePoint.position;
+        // Doors
+
+    MainDeckDoor.Lock();
+    AirlockDoor.Lock();
+    CrewQuartersDoor.Lock();
+    StorageDoor.Lock();
+
+    uiManager.StartMainMenuUI();
     }
 
     private void HandleEventListeners()
@@ -579,6 +612,7 @@ public class GameManager : MonoBehaviour
         NextRespawnPoint();
 
         AirlockIntercom.GetComponent<ItemGlow>().SetInactive();
+        AirlockButton.GetComponent<ItemGlow>().SetActive();
     }
 
     private void HandleAirlockJettisonComplete()
@@ -587,6 +621,7 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         StartCoroutine(HandleAirlockJettisonSequence());
+        AirlockButton.GetComponent<ItemGlow>().SetInactive();
     }
 
     IEnumerator HandleAirlockJettisonSequence()
@@ -698,6 +733,8 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Instantiate(minion, minionSpawnSR.transform);
 
+        uiManager.EnableGunCooldownSlider();
+
         audioManager.PlayChaseMusic();
         audioManager.StopDoorCrash();
         audioManager.StopAmbientMusic();
@@ -731,9 +768,9 @@ public class GameManager : MonoBehaviour
         // Start Third Task
         NextRespawnPoint();
 
-        engineRoomWindow.GetComponentInChildren<ItemGlow>().SetActive();
-        engineRoomButton1.GetComponentInChildren<ItemGlow>().SetActive();
-        engineRoomButton2.GetComponentInChildren<ItemGlow>().SetActive();
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = true;
+        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = true;
+        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = true;
 
         Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayEngineRoomDialogue();
 
@@ -750,8 +787,11 @@ public class GameManager : MonoBehaviour
         Instantiate(entity, portal.transform);
 
         // End Game
-        EnterNextState();
         EnterState(GameStates.GAME_COMPLETE);
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
     }
     
     private void HandleEngineRoomWindowShot()
@@ -774,6 +814,10 @@ public class GameManager : MonoBehaviour
 
         // End Game
         EnterState(GameStates.GAME_COMPLETE);
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
     }
 
     private void HandleGameComplete()

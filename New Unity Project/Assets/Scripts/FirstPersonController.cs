@@ -43,6 +43,8 @@ public class FirstPersonController : MonoBehaviour
         playerInput.actions.FindAction("Look").canceled += ctx => lookInput = Vector2.zero;
         playerInput.actions.FindAction("Look").Enable();
 
+        Cursor.lockState = CursorLockMode.Confined;
+
         // Moving with WASD
         playerInput.actions.FindAction("Move").performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         playerInput.actions.FindAction("Move").canceled += ctx => moveInput = Vector2.zero;

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1295076779349430940}
   - component: {fileID: 2932899949775798434}
   - component: {fileID: 5570593847411211408}
-  - component: {fileID: 3488372996332308157}
   - component: {fileID: 3623502579723346368}
   m_Layer: 3
   m_Name: EntityBody
@@ -85,21 +84,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &3488372996332308157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077607730697330556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 067570f624320764b81d372e6fb40182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  speed: 2
-  KeycardPrefab: {fileID: 0}
 --- !u!212 &3623502579723346368
 SpriteRenderer:
   m_ObjectHideFlags: 0

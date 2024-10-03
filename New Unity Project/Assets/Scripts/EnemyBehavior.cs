@@ -6,10 +6,10 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField]
     int health = 3;
-    float speed = .2f;
+    float speed = .4f;
 
     float distanceSensitivity = 5f;
-    float attackSensitivity = 3f;
+    float attackSensitivity = 2f;
     float AttackCooldown = 5;
     bool canAttack;
 
@@ -33,20 +33,17 @@ public class EnemyBehavior : MonoBehaviour
         {
             float distFromPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.gameObject.transform.position);
 
-            if (distFromPlayer >= attackSensitivity)
+            if (distFromPlayer >= distanceSensitivity)
             {
-                if (distFromPlayer <= distanceSensitivity)
-                {
-                    transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed * Time.deltaTime);
-                }
-                else
-                {
-                    transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed / 3 * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed / 3 * Time.deltaTime);
 
-                    if (canAttack)
-                    {
-                        AttackPlayer();
-                    }
+                if (canAttack && distFromPlayer <= attackSensitivity)
+                {
+                    StartCoroutine(AttackPlayer());
                 }
             }
         }        
@@ -59,7 +56,7 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator AttackPlayer()
     {
-        --GameManager.Instance.PlayerHealth;
+        GameManager.Instance.TakeDamage();
         canAttack = false;
 
         yield return new WaitForSeconds(AttackCooldown);

@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI ObjectiveText;
     [SerializeField]
     TextMeshProUGUI ProtagText;
+    [SerializeField]
+    GameObject gunCooldownRenderer;
+    Slider gunCooldownSlider;
 
     [SerializeField]
     GameObject NeutralEndingPanel;
@@ -38,6 +41,11 @@ public class UIManager : MonoBehaviour
     public InventoryPanelUI GetInventoryPanelController()
     {
         return InventoryPanel.GetComponent<InventoryPanelUI>();
+    }
+
+    public GameObject GetGameplayPanelController()
+    {
+        return GameplayPanel;
     }
 
     void OnAwake()
@@ -80,6 +88,7 @@ public class UIManager : MonoBehaviour
     {
         DisableIntroSequencePanel();
         EnableGameplayPanel();
+        DisableGunCooldownSlider();
         UpdateLocationText(" ");
         UpdateProtagText(" ");
     }
@@ -204,5 +213,23 @@ public class UIManager : MonoBehaviour
     public void UpdateProtagText(string protagText)
     {
         ProtagText.text = protagText;
+    }
+
+    public void EnableGunCooldownSlider()
+    {
+        gunCooldownRenderer.SetActive(true);
+
+        gunCooldownSlider = gunCooldownRenderer.GetComponentInChildren<Slider>();
+        gunCooldownSlider.maxValue = GameManager.Instance.Player.gameObject.GetComponent<PlayerGun>().Cooldown;
+    }
+
+    public void DisableGunCooldownSlider()
+    {
+        gunCooldownRenderer.SetActive(false);
+    }
+
+    public void UpdateGunCooldownSlider(float value)
+    {
+        gunCooldownSlider.value = value;
     }
 }
