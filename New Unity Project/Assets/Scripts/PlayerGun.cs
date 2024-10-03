@@ -9,10 +9,13 @@ public class PlayerGun : MonoBehaviour
     float cooldown = 3f;
     [SerializeField]
     float timer = 0;
-    float range = 20f;
+    float range = 30f;
 
     [SerializeField]
     LayerMask enemyMask;
+
+    [SerializeField]
+    LayerMask windowMask;
 
     void FixedUpdate()
     {
@@ -45,6 +48,7 @@ public class PlayerGun : MonoBehaviour
 
         RaycastHit result;
 
+        // Shoot Enemy
         bool hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
             Camera.main.transform.forward, 
             out result, range, enemyMask);
@@ -58,6 +62,22 @@ public class PlayerGun : MonoBehaviour
         {
             Debug.Log("Shot Enemy");
             result.collider.gameObject.GetComponent<EnemyBehavior>().TakeDamage();
+        }
+
+        // Shoot Window
+        hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
+            Camera.main.transform.forward, 
+            out result, range, windowMask);
+
+        if(GameManager.Instance.PlayerArm.activeSelf)
+        {
+            GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
+        }        
+        
+        if (hit)
+        {
+            Debug.Log("Shot Window");
+            GameManager.Instance.EnterState(GameManager.GameStates.ENGINE_ROOM_WINDOW_SHOT);
         }
         
     }

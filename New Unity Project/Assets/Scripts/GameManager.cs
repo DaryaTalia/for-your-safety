@@ -67,6 +67,9 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField]
+    public AudioManager audioManager;
+
+    [SerializeField]
     List<GameObject> playerObjects;
     [SerializeField]
     List<Behaviour> playerBehaviours;
@@ -81,7 +84,7 @@ public class GameManager : MonoBehaviour
     public bool keyFound;
     public bool gunFound;
 
-    public bool storageRoomDialogueComplete;
+    public bool crewQuartersDialogueComplete;
 
     // Engine Room Buttons
     public bool Button1Pushed;
@@ -118,6 +121,9 @@ public class GameManager : MonoBehaviour
     int jettisonTimer = 5;
 
     [SerializeField]
+    public GameObject AirlockButton;
+
+    [SerializeField]
     AudioClip doorBanging;
 
     [SerializeField]
@@ -135,6 +141,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject portal;
 
+    [SerializeField]
+    GameObject engineRoomButton1;
+    [SerializeField]
+    GameObject engineRoomButton2;
     [SerializeField]
     GameObject engineRoomWindow;
     [SerializeField]
@@ -174,103 +184,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Game Start");
-
-        // Game State
-        currentState = GameStates.MAIN_MENU;
-        lastState = GameStates.MAIN_MENU;
-
-        // UI & Player
-        uiManager.StartMainMenuUI();
-        foreach(GameObject go in playerObjects)
-        {
-            go.SetActive(false);
-        }
-        foreach(Behaviour be in playerBehaviours)
-        {
-            be.enabled = false;
-        }
-
-        // Crew Randomizer
-        crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
-
-        // Enemy
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            go.SetActive(false);
-        }
-
-        // Save States
-        if(savePoints.Count < 1)
-        {
-            return;
-        }
-        lastSavePoint = savePoints[0];
+        HandleGameStart();
     }
 
     private void Update()
     {
-        // Event Listeners
-        if ( keyFound && 
-            currentLocation == Locations.MAIN_DECK)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.AIRLOCK && 
-            currentState == GameStates.MAIN_DECK_KEYCARD_COLLECTED)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.CREW_QUARTERS && 
-            currentState == GameStates.AIRLOCK_JETTISON_COMPLETE)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.CREW_QUARTERS && 
-            currentState == GameStates.CREW_QUARTERS_INTERCOM_ANSWERED &&
-            storageRoomDialogueComplete)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.CREW_QUARTERS && 
-            currentState == GameStates.CREW_QUARTERS_CHASE &&
-            keyFound)
-        {
-            EnterNextState();
-        }  else
-        if ( currentLocation == Locations.STORAGE_ROOM && 
-            currentState == GameStates.CREW_QUARTERS_KEY_OBTAINED)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.STORAGE_ROOM && 
-            currentState == GameStates.STORAGE_ROOM_ENTERED
-            && gunFound)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.STORAGE_ROOM && 
-            currentState == GameStates.STORAGE_ROOM_CHASE
-            && keyFound)
-        {
-            EnterNextState();
-        } else
-        if ( currentLocation == Locations.ENGINE_ROOM && 
-            currentState == GameStates.STORAGE_ROOM_ACCESS_CARD_OBTAINED)
-        {
-            EnterNextState();
-        }
-         else
-
-        // Alternate Endings
-        if(Button1Pushed && Button2Pushed)
-        {
-            EnterState(GameStates.ENGINE_ROOM_PORTAL_OPENED);
-        }
-        if(WindowShot)
-        {
-            EnterState(GameStates.ENGINE_ROOM_WINDOW_SHOT);
-        }
+        HandleEventListeners();
     }
 
     public void EnterNextState()
@@ -445,6 +364,119 @@ public class GameManager : MonoBehaviour
 
     #region Handlers
 
+    private void HandleGameStart()
+    {
+        Debug.Log("Game Start");
+
+        // Game State
+        currentState = GameStates.MAIN_MENU;
+        lastState = GameStates.MAIN_MENU;
+
+        // UI & Player
+        uiManager.StartMainMenuUI();
+        foreach (GameObject go in playerObjects)
+        {
+            go.SetActive(false);
+        }
+        foreach (Behaviour be in playerBehaviours)
+        {
+            be.enabled = false;
+        }
+
+        // Crew Randomizer
+        crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();
+
+        // Enemy
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            go.SetActive(false);
+        }
+
+        // Save States
+        if (savePoints.Count < 1)
+        {
+            return;
+        }
+        lastSavePoint = savePoints[0];
+
+        Player.gameObject.transform.position = lastSavePoint.position;
+    }
+
+    private void HandleEventListeners()
+    {
+        // Event Listeners
+        if (keyFound &&
+            currentLocation == Locations.MAIN_DECK)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.AIRLOCK &&
+            currentState == GameStates.MAIN_DECK_KEYCARD_COLLECTED)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.CREW_QUARTERS &&
+            currentState == GameStates.AIRLOCK_JETTISON_COMPLETE)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.CREW_QUARTERS &&
+            currentState == GameStates.CREW_QUARTERS_INTERCOM_ANSWERED &&
+            crewQuartersDialogueComplete)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.CREW_QUARTERS &&
+            currentState == GameStates.CREW_QUARTERS_CHASE &&
+            keyFound)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.STORAGE_ROOM &&
+            currentState == GameStates.CREW_QUARTERS_KEY_OBTAINED)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.STORAGE_ROOM &&
+            currentState == GameStates.STORAGE_ROOM_ENTERED
+            && gunFound)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.STORAGE_ROOM &&
+            currentState == GameStates.STORAGE_ROOM_CHASE
+            && keyFound)
+        {
+            EnterNextState();
+        }
+        else
+        if (currentLocation == Locations.ENGINE_ROOM &&
+            currentState == GameStates.STORAGE_ROOM_ACCESS_CARD_OBTAINED)
+        {
+            EnterNextState();
+        }
+        else
+
+        // Alternate Endings
+        if (currentState == GameStates.ENGINE_ROOM_ENTERED &&
+            Button1Pushed && Button2Pushed)
+        {
+            EnterState(GameStates.ENGINE_ROOM_PORTAL_OPENED);
+        }
+        if (currentState == GameStates.ENGINE_ROOM_ENTERED &&
+            WindowShot)
+        {
+            EnterState(GameStates.ENGINE_ROOM_WINDOW_SHOT);
+        }
+    }
+
     private void HandleIntroSequence()
     {
         Debug.Log("Intro Sequence State Triggered.");
@@ -481,6 +513,8 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayMainDeckDialogue();
+
+        audioManager.PlayMainDeckSceneIntro();
     }
 
     private void HandleMainDeckIntercomRinging()
@@ -585,6 +619,8 @@ public class GameManager : MonoBehaviour
         // Start First Task
         CrewQuartersIntercom.Ringing = true;
 
+        Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayCrewQuartersDialogue();
+
         // Start Second Task
         AirlockDoor.Lock();
 
@@ -621,6 +657,9 @@ public class GameManager : MonoBehaviour
 
         //Start Second Task
         Instantiate(minion, minionSpawnCQ.transform.position, Quaternion.identity);
+
+        audioManager.PlayChaseMusic();
+        audioManager.StopAmbientMusic();
     }
 
     private void HandleUnfreezePlayerMovement()
@@ -649,6 +688,12 @@ public class GameManager : MonoBehaviour
         //CrewQuartersDoor.gameObject.GetComponent<AudioSource>().Play();
 
         uiManager.GetInventoryPanelController().RemoveItem("Key");
+
+        Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayStorageRoomDialogue();
+
+        audioManager.PlayAmbientMusic();
+        audioManager.PlayDoorCrash();
+        audioManager.StopChaseMusic();
     }
     
     private void HandleStorageRoomChase()
@@ -656,7 +701,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Storage Room Chase.");
 
         // Start First Task
-        GameObject newMinion = Instantiate(minion, minionSpawnSR.transform);
+        Instantiate(minion, minionSpawnSR.transform);
+
+        audioManager.PlayChaseMusic();
+        audioManager.StopDoorCrash();
+        audioManager.StopAmbientMusic();
     }
     
     private void HandleStorageRoomAccessCardObtained()
@@ -665,6 +714,9 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         StorageDoor.Unlock();
+
+        audioManager.PlayAmbientMusic();
+        audioManager.StopChaseMusic();
     }
 
     private void HandleEngineRoomEntered()
@@ -672,17 +724,26 @@ public class GameManager : MonoBehaviour
         Debug.Log("Engine Room Entered.");
 
         // Start First Task
-        GameObject newPortal = Instantiate(portal, portalLocation);
-        Instantiate(entity, newPortal.transform);
+        GameObject newPortal = Instantiate(portal, portalLocation.position, Quaternion.identity);
+        Instantiate(entity, newPortal.transform.position, Quaternion.identity);
 
         // Start Second Task
         EngineRoomIntercom.Answer();
         keyFound = false;
 
+        uiManager.GetInventoryPanelController().RemoveItem("Key");
+
         // Start Third Task
         NextRespawnPoint();
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().SetActive();
+        engineRoomButton1.GetComponentInChildren<ItemGlow>().SetActive();
+        engineRoomButton2.GetComponentInChildren<ItemGlow>().SetActive();
+
+        Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayEngineRoomDialogue();
+
+        audioManager.PlayChaseMusic();
+        audioManager.StopAmbientMusic();
     }
 
     private void HandleEngineRoomPortalOpened()
@@ -695,6 +756,7 @@ public class GameManager : MonoBehaviour
 
         // End Game
         EnterNextState();
+        EnterState(GameStates.GAME_COMPLETE);
     }
     
     private void HandleEngineRoomWindowShot()
@@ -703,6 +765,7 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         engineRoomWindow.GetComponentInChildren<MeshFilter>().mesh = brokenWindowMesh;
+        engineRoomWindow.GetComponentInChildren<MeshCollider>().enabled = false;
 
         // Start Second Task
 
@@ -712,15 +775,38 @@ public class GameManager : MonoBehaviour
 
         // Throw Player and Entity out the window
         Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow, ForceMode.Force);
-        GameObject.FindGameObjectWithTag("Enemy").GetComponent<Rigidbody>().AddForce(directionEntityToWindow, ForceMode.Force);
+        GameObject.FindGameObjectWithTag("Entity").GetComponent<Rigidbody>().AddForce(directionEntityToWindow, ForceMode.Force);
 
         // End Game
-        EnterNextState();
+        EnterState(GameStates.GAME_COMPLETE);
     }
 
     private void HandleGameComplete()
     {
         Debug.Log("Game Complete!");
+
+        if(lastState == GameStates.ENGINE_ROOM_WINDOW_SHOT)
+        {
+            uiManager.StartNeutralEndingSequence();
+        }
+        else
+
+        if (lastState == GameStates.ENGINE_ROOM_PORTAL_OPENED)
+        {
+            uiManager.StartBadEndingSequence();
+        }
+
+        StartCoroutine(HandleReturnToMainMenuCredits());
+    }
+
+    IEnumerator HandleReturnToMainMenuCredits()
+    {
+        yield return new WaitForSeconds(30);
+
+        HandleGameStart();
+        uiManager.DisableMainMenuPanel();
+        uiManager.EnableCreditsPanel();
+        uiManager.EnableCreditsMMButton();
     }
 
 #endregion

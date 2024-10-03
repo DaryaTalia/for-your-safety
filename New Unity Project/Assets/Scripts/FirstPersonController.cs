@@ -7,10 +7,11 @@ public class FirstPersonController : MonoBehaviour
 {
     [SerializeField]
     PlayerInput playerInput;
+    Rigidbody rb;
 
     [Header("OnLook")]
     public Transform cameraTransform;
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 80;
     public float rotationLimit = 90f;
 
     Vector2 lookInput;              // mouse
@@ -46,6 +47,8 @@ public class FirstPersonController : MonoBehaviour
         playerInput.actions.FindAction("Move").canceled += ctx => moveInput = Vector2.zero;
         playerInput.actions.FindAction("Move").Enable();
 
+        rb = GetComponent<Rigidbody>();
+
         StandUp();
     }
 
@@ -56,7 +59,7 @@ public class FirstPersonController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Look
         if (lookInput != Vector2.zero)
@@ -121,7 +124,9 @@ public class FirstPersonController : MonoBehaviour
         if (move.magnitude > 1f)
             move.Normalize();
 
-        transform.position += move * moveSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + move * moveSpeed * Time.deltaTime);
+
+        //transform.position += move * moveSpeed * Time.deltaTime;
     }
 
     void OnCrouch()

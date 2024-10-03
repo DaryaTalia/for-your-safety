@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI ProtagText;
 
+    [SerializeField]
+    GameObject NeutralEndingPanel;
+    [SerializeField]
+    GameObject BadEndingPanel;
+
     public InventoryPanelUI GetInventoryPanelController()
     {
         return InventoryPanel.GetComponent<InventoryPanelUI>();
@@ -54,7 +59,21 @@ public class UIManager : MonoBehaviour
     {
         DisableMainMenuPanel();
         EnableIntroSequencePanel();
-        IntroSequencePanel.GetComponent<IntroSequenceAnimation>().PlayIntroSequence();
+        IntroSequencePanel.GetComponent<IntroSequenceAnimation>().PlaySequence();
+    }
+
+    public void StartNeutralEndingSequence()
+    {
+        DisableGameplayPanel();
+        EnableNeutralEndingPanel();
+        NeutralEndingPanel.GetComponent<IntroSequenceAnimation>().PlaySequence();
+    }
+
+    public void StartBadEndingSequence()
+    {
+        DisableGameplayPanel();
+        EnableBadEndingPanel();
+        BadEndingPanel.GetComponent<IntroSequenceAnimation>().PlaySequence();
     }
 
     public void StartGameUI()
@@ -100,6 +119,26 @@ public class UIManager : MonoBehaviour
     public void DisableIntroSequencePanel()
     {
         IntroSequencePanel.SetActive(false);
+    }
+
+    public void EnableNeutralEndingPanel()
+    {
+        NeutralEndingPanel.SetActive(true);
+    }
+
+    public void DisableNeutralEndingPanel()
+    {
+        NeutralEndingPanel.SetActive(false);
+    }
+
+    public void EnableBadEndingPanel()
+    {
+        BadEndingPanel.SetActive(true);
+    }
+
+    public void DisableBadEndingPanel()
+    {
+        BadEndingPanel.SetActive(false);
     }
 
     public void EnableCreditsPanel()
@@ -166,5 +205,4 @@ public class UIManager : MonoBehaviour
     {
         ProtagText.text = protagText;
     }
-
 }

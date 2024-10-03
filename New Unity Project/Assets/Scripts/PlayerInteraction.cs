@@ -91,6 +91,30 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        // Button 1
+        if (other.gameObject.CompareTag("EngineRoomButton1"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            controller.SetNewTarget(other, "EngineRoomButton1");
+
+            StartCoroutine(Reset());
+            return;
+        }
+
+        // Button 2
+        if (other.gameObject.CompareTag("EngineRoomButton2"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            controller.SetNewTarget(other, "EngineRoomButton2");
+
+            StartCoroutine(Reset());
+            return;
+        }
+
         // Intercom
         if (other.gameObject.CompareTag("Intercom"))
         {
@@ -217,6 +241,21 @@ public class PlayerInteraction : MonoBehaviour
     public void PlayAirlockDialogue()
     {
         GameManager.Instance.uiManager.UpdateObjectiveText(AirlockObjective);
+    }
+
+    public void PlayCrewQuartersDialogue()
+    {
+        GameManager.Instance.uiManager.UpdateObjectiveText(CrewQuartersObjective);
+    }
+
+    public void PlayStorageRoomDialogue()
+    {
+        GameManager.Instance.uiManager.UpdateObjectiveText(StorageRoomObjective);
+    }
+
+    public void PlayEngineRoomDialogue()
+    {
+        GameManager.Instance.uiManager.UpdateObjectiveText(EngineRoomObjective);
     }
 
 }

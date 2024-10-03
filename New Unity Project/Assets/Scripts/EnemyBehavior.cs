@@ -29,26 +29,27 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distFromPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.gameObject.transform.position);
+        if(health > 0)
+        {
+            float distFromPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.gameObject.transform.position);
 
-        if (distFromPlayer >= attackSensitivity)
-        {    
-            if (distFromPlayer <= distanceSensitivity)
+            if (distFromPlayer >= attackSensitivity)
             {
-                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed * Time.deltaTime);
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed/3 * Time.deltaTime);
-
-                if (canAttack)
+                if (distFromPlayer <= distanceSensitivity)
                 {
-                    AttackPlayer();
+                    transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed / 3 * Time.deltaTime);
+
+                    if (canAttack)
+                    {
+                        AttackPlayer();
+                    }
                 }
             }
-        }
-
-        
+        }        
     }
 
     void LateUpdate()
@@ -77,10 +78,10 @@ public class EnemyBehavior : MonoBehaviour
         {
             Debug.Log("Enemy is Dead");
 
-            if(gameObject.CompareTag("Enemy"))
-            {
-                Instantiate(KeycardPrefab, gameObject.transform);
-            }
+            GetComponentInChildren<Animator>().enabled = false;
+
+            GameObject key = Instantiate(KeycardPrefab, gameObject.transform.position, Quaternion.identity);
+            key.transform.position = gameObject.transform.position;
 
             Destroy(gameObject, 3);
         }

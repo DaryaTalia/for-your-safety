@@ -4,6 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/VerticalSlice.unity
+    guid: a2048842ac3e59648b988f5ef7c50308
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 914aa3a4def45ca458db4464be1939be, type: 2}

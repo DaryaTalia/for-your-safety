@@ -38,17 +38,17 @@ public class IntroSequenceAnimation : MonoBehaviour
         }
     }
 
-    public void PlayIntroSequence()
+    public void PlaySequence()
     {
         //IntroText.Insert(0, " ");
         foreach (string text in IntroText)
         {
-            StartCoroutine(PlayIntroText(text));
+            StartCoroutine(PlayText(text));
         }
         StartCoroutine(StartGame());
     }
 
-    IEnumerator PlayIntroText(string message)
+    IEnumerator PlayText(string message)
     {
         yield return new WaitForSeconds(textSpeed * index++ + (textSpeedModifier / message.Length));
         IntroTextBox.text = message;

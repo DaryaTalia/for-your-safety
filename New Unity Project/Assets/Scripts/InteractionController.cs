@@ -47,6 +47,24 @@ public class InteractionController : MonoBehaviour
 
                 break;
 
+            case "EngineRoomButton1":
+
+                GameManager.Instance.Button1Pushed = true;
+                GameObject.FindGameObjectWithTag("EngineRoomButton1").GetComponent<ItemGlow>().enabled = false;
+
+                ClearTarget();
+
+                break;
+
+            case "EngineRoomButton2":
+
+                GameManager.Instance.Button2Pushed = true;
+                GameObject.FindGameObjectWithTag("EngineRoomButton2").GetComponent<ItemGlow>().enabled = false;
+
+                ClearTarget();
+
+                break;
+
             case "Intercom":
 
 

@@ -37,15 +37,16 @@ public class IntercomScript : MonoBehaviour
         {
             activeCoroutines.Add(StartCoroutine(Ring()));
             ringCooldown = true;
+
+            if(!GameManager.Instance.audioManager.GetIntercomBeep().isPlaying)
+            {
+                GameManager.Instance.audioManager.PlayIntercomBeep();
+            }
         }
     }
 
     IEnumerator Ring()
     {
-        // Play Intercom Ringing Sound on Loop
-        GameManager.Instance.uiManager.UpdateProtagText(" ");
-        yield return new WaitForSeconds(ringTimer);
-        GameManager.Instance.uiManager.UpdateProtagText("**Ringing**");
         yield return new WaitForSeconds(ringTimer);
         ringCooldown = false;
     }
@@ -55,13 +56,55 @@ public class IntercomScript : MonoBehaviour
         // Destroy Audio Device to end ringing
         ringing = false;
         ringCooldown = false;
+        GameManager.Instance.audioManager.StopIntercomBeep();
         GameManager.Instance.uiManager.UpdateProtagText(" ");
         foreach(Coroutine cor in activeCoroutines)
         {
             StopCoroutine(cor);
         }
         StopAllCoroutines();
-        DisplayDialogue();
+        //DisplayDialogue();
+        PlayDialogue();
+    }
+
+    void PlayDialogue()
+    {
+        switch (GameManager.Instance.currentState)
+        {
+            case GameManager.GameStates.MAIN_DECK_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.PlayMainDeckScene();
+                GameManager.Instance.audioManager.StopMainDeckSceneIntro();
+
+                StartCoroutine(Continue(GameManager.Instance.audioManager.mainDeckSceneLength));
+                StartCoroutine(ObjectiveEnumerator((int)GameManager.Instance.audioManager.mainDeckSceneLength + 2));
+                break;
+            case GameManager.GameStates.AIRLOCK_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.PlayAirlockScene();
+
+                StartCoroutine(Continue(GameManager.Instance.audioManager.airlockSceneLength));
+                StartCoroutine(ObjectiveEnumerator((int)GameManager.Instance.audioManager.airlockSceneLength + 2));
+                break;
+            case GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.PlayCrewQuartersScene();
+
+                StartCoroutine(Continue(GameManager.Instance.audioManager.crewQuartersSceneLength));
+                StartCoroutine(ObjectiveEnumerator((int)GameManager.Instance.audioManager.crewQuartersSceneLength + 2));
+                break;
+            case GameManager.GameStates.ENGINE_ROOM_ENTERED:
+                GameManager.Instance.audioManager.PlayEngineeringScene();
+
+                StartCoroutine(Continue(GameManager.Instance.audioManager.engineeringSceneLength));
+                StartCoroutine(ObjectiveEnumerator((int)GameManager.Instance.audioManager.engineeringSceneLength + 2));
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    IEnumerator Continue(float time)
+    {
+        yield return new WaitForSeconds(time);
     }
 
     void DisplayDialogue()
@@ -85,16 +128,35 @@ public class IntercomScript : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameManager.Instance.uiManager.UpdateObjectiveText(ObjectiveDialogue);
 
-        if(GameManager.Instance.currentState == GameManager.GameStates.MAIN_DECK_INTERCOM_ANSWERED)
+        switch (GameManager.Instance.currentState)
         {
-            GameManager.Instance.SpawnKeycard();
-            Destroy(this, 2f);
+            case GameManager.GameStates.MAIN_DECK_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.StopMainDeckScene();
+
+                GameManager.Instance.SpawnKeycard();
+                Destroy(this, 2f);
+                break;
+            case GameManager.GameStates.AIRLOCK_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.StopAirlockScene();
+
+                GameManager.Instance.AirlockButton.GetComponent<ButtonScript>().enabled = true;
+                Destroy(this, 2f);
+                break;
+            case GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED:
+                GameManager.Instance.audioManager.StopCrewQuartersScene();
+
+                GameManager.Instance.crewQuartersDialogueComplete = true;
+                Destroy(this, 2f);
+                break;
+            case GameManager.GameStates.ENGINE_ROOM_ENTERED:
+                GameManager.Instance.audioManager.StopEngineeringScene();
+
+                break;
+
+            default:
+                break;
         }
 
-        if(GameManager.Instance.currentState == GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED)
-        {
-            GameManager.Instance.storageRoomDialogueComplete = true;
-            Destroy(this, 2f);
-        }
+        GameManager.Instance.uiManager.UpdateProtagText(" ");
     }
 }

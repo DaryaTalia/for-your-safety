@@ -21,6 +21,8 @@ TagManager:
   - CrewMember
   - Window
   - BloomCamera
+  - EngineRoomButton1
+  - EngineRoomButton2
   layers:
   - Default
   - TransparentFX
@@ -32,7 +34,7 @@ TagManager:
   - Interactable
   - PPV
   - PPV Bloom
-  - 
+  - Window
   - 
   - 
   - 
