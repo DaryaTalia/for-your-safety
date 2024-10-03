@@ -901,7 +901,7 @@ MonoBehaviour:
   IntroText:
   - The entities have taken over.
   - They will soon consume Earth using the Warp Drive's history.
-  - Earthkind is doomed
+  - Earthkind is doomed.
   - 
   - Bad Ending
   - Thanks for playing!
@@ -3995,7 +3995,7 @@ MonoBehaviour:
   IntroText:
   - You sacrificed yourself to save Humanity.
   - Your legacy will be honored.
-  - Earthkind is doomed
+  - Earthkind is saved.
   - 
   - Neutral Ending
   - Thanks for playing!

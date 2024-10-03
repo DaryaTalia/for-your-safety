@@ -4899,7 +4899,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1088
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -15429,7 +15429,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -21021,7 +21021,7 @@ MonoBehaviour:
   rotationLimit: 30
   standingHead: {fileID: 4470160473505841674}
   crouchingHead: {fileID: 3878189515026827875}
-  moveSpeed: 8
+  moveSpeed: 5
   inVent: 0
   standingBody: {fileID: 3860590652870602951}
   crouchingBody: {fileID: 825989597584419729}
@@ -21943,6 +21943,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4524694625881156729, guid: b96a7d8236750e44185e0fe8e857fadb, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5256519769953091758, guid: b96a7d8236750e44185e0fe8e857fadb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.99
@@ -22627,7 +22631,7 @@ Transform:
   m_GameObject: {fileID: 2832780787403478675}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.29, y: 2, z: -30.83}
+  m_LocalPosition: {x: -3.29, y: 2, z: -26.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

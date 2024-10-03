@@ -8,7 +8,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     float cooldown = 3f;
     [SerializeField]
-    float timer = 0;
+    float timer = 1;
     float range = 30f;
 
     [SerializeField]
@@ -19,11 +19,14 @@ public class PlayerGun : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(GameManager.Instance.gunFound && timer > 0)
+        if(GameManager.Instance.gunFound)
         {
-            timer -= 1 * Time.deltaTime;
+            GameManager.Instance.uiManager.UpdateGunCooldownSlider(cooldown / timer);
 
-            GameManager.Instance.uiManager.UpdateGunCooldownSlider(timer / cooldown);
+            if (timer < cooldown)
+            {
+                timer += .9f * Time.deltaTime;
+            }
         }
     }
 
@@ -41,51 +44,48 @@ public class PlayerGun : MonoBehaviour
             return;
         }
 
-        if(timer > 0)
-        {
-            Debug.Log("Timer = " + timer);
-            return;
-        }
-
         Debug.Log("Shoot");
-        timer = cooldown;
         Debug.DrawRay(GameManager.Instance.GunshotPoint.position,
             Camera.main.transform.forward * 10, 
             Color.blue, 15f);
 
-        RaycastHit result;
+        timer = 1;
 
-        // Shoot Enemy
-        bool hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
-            Camera.main.transform.forward, 
-            out result, range, enemyMask);
-
-        if(GameManager.Instance.PlayerArm.activeSelf)
+        if (GameManager.Instance.PlayerArm.activeSelf)
         {
             GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
-        }        
-        
+        }
+
+        ShootEnemy();
+        ShootWindow();
+    }
+
+    void ShootEnemy()
+    {
+        // Shoot Enemy
+        bool hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
+            Camera.main.transform.forward,
+            out RaycastHit result, range, enemyMask);
+
         if (hit)
         {
             Debug.Log("Shot Enemy");
             result.collider.gameObject.GetComponent<EnemyBehavior>().TakeDamage();
         }
+    }
 
+    void ShootWindow()
+    {
         // Shoot Window
-        hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
-            Camera.main.transform.forward, 
-            out result, range, windowMask);
+        bool hit = Physics.Raycast(GameManager.Instance.GunshotPoint.position,
+            Camera.main.transform.forward,
+            out _, range, windowMask);
 
-        if(GameManager.Instance.PlayerArm.activeSelf)
-        {
-            GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
-        }        
-        
         if (hit)
         {
             Debug.Log("Shot Window");
-            GameManager.Instance.EnterState(GameManager.GameStates.ENGINE_ROOM_WINDOW_SHOT);
+            GameManager.Instance.WindowShot = true;
         }
-        
     }
+
 }

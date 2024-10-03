@@ -193,11 +193,13 @@ public class UIManager : MonoBehaviour
     public void EnablePausePanel()
     {
         PausePanel.SetActive(true);
+        GameManager.Instance.Player.enabled = false;
     }
 
     public void DisablePausePanel()
     {
         PausePanel.SetActive(false);
+        GameManager.Instance.Player.enabled = true;
     }
 
     public void UpdateLocationText(string locationText)
@@ -221,6 +223,7 @@ public class UIManager : MonoBehaviour
 
         gunCooldownSlider = gunCooldownRenderer.GetComponentInChildren<Slider>();
         gunCooldownSlider.maxValue = GameManager.Instance.Player.gameObject.GetComponent<PlayerGun>().Cooldown;
+        gunCooldownSlider.minValue = 1;
     }
 
     public void DisableGunCooldownSlider()

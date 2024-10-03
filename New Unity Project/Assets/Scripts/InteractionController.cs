@@ -103,12 +103,12 @@ public class InteractionController : MonoBehaviour
         {
             GameManager.Instance.uiManager.PauseGame();
             GameManager.Instance.GamePaused = true;
-            GameManager.Instance.Player.gameObject.SetActive(false);
+            GameManager.Instance.Player.enabled = false;
         } else
         {
             GameManager.Instance.uiManager.ResumeGame();
             GameManager.Instance.GamePaused = false;
-            GameManager.Instance.Player.gameObject.SetActive(true);
+            GameManager.Instance.Player.enabled = true;
 
         }
     }

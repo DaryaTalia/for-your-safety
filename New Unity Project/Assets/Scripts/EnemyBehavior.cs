@@ -39,7 +39,7 @@ public class EnemyBehavior : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed / 3 * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, GameManager.Instance.Player.gameObject.transform.position, speed / 2 * Time.deltaTime);
 
                 if (canAttack && distFromPlayer <= attackSensitivity)
                 {

@@ -390,8 +390,8 @@ public class GameManager : MonoBehaviour
         Button2Pushed = false;
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponent<ItemGlow>().enabled = false;
 
         // Crew Randomizer
         if (crewMemberRandomizer == null)
@@ -498,6 +498,7 @@ public class GameManager : MonoBehaviour
         {
             EnterState(GameStates.ENGINE_ROOM_PORTAL_OPENED);
         }
+
         if (currentState == GameStates.ENGINE_ROOM_ENTERED &&
             WindowShot)
         {
@@ -760,22 +761,24 @@ public class GameManager : MonoBehaviour
         Instantiate(entity, newPortal.transform.position, Quaternion.identity);
 
         // Start Second Task
-        EngineRoomIntercom.Answer();
         keyFound = false;
 
         uiManager.GetInventoryPanelController().RemoveItem("Key");
 
-        // Start Third Task
-        NextRespawnPoint();
-
         engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = true;
-        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = true;
-        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = true;
+        engineRoomButton1.GetComponent<ItemGlow>().enabled = true;
+        engineRoomButton2.GetComponent<ItemGlow>().enabled = true;
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().SetActive();
+        engineRoomButton1.GetComponent<ItemGlow>().SetActive();
+        engineRoomButton2.GetComponent<ItemGlow>().SetActive();
 
         Player.gameObject.GetComponentInChildren<PlayerInteraction>().PlayEngineRoomDialogue();
 
         audioManager.PlayChaseMusic();
         audioManager.StopAmbientMusic();
+
+        EngineRoomIntercom.Answer();
     }
 
     private void HandleEngineRoomPortalOpened()
@@ -790,8 +793,14 @@ public class GameManager : MonoBehaviour
         EnterState(GameStates.GAME_COMPLETE);
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponent<ItemGlow>().enabled = false;
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().SetInactive();
+        engineRoomButton1.GetComponent<ItemGlow>().SetInactive();
+        engineRoomButton2.GetComponent<ItemGlow>().SetInactive();
+
+        EngineRoomIntercom.StopAllCoroutines();
     }
     
     private void HandleEngineRoomWindowShot()
@@ -806,18 +815,24 @@ public class GameManager : MonoBehaviour
 
         // Calculate Directions to Window
         Vector3 directionPlayerToWindow = engineRoomWindow.transform.position - Player.gameObject.transform.position;
-        Vector3 directionEntityToWindow = engineRoomWindow.transform.position - GameObject.FindGameObjectWithTag("Enemy").transform.position;
+        Vector3 directionEntityToWindow = engineRoomWindow.transform.position - GameObject.FindGameObjectWithTag("Entity").transform.position;
 
         // Throw Player and Entity out the window
-        Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow, ForceMode.Force);
-        GameObject.FindGameObjectWithTag("Entity").GetComponent<Rigidbody>().AddForce(directionEntityToWindow, ForceMode.Force);
+        Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow * 15, ForceMode.Impulse);
+        GameObject.FindGameObjectWithTag("Entity").GetComponentInChildren<Rigidbody>().AddForce(directionEntityToWindow * 15, ForceMode.Impulse);
 
         // End Game
         EnterState(GameStates.GAME_COMPLETE);
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton1.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton2.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponent<ItemGlow>().enabled = false;
+
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().SetInactive();
+        engineRoomButton1.GetComponent<ItemGlow>().SetInactive();
+        engineRoomButton2.GetComponent<ItemGlow>().SetInactive();
+
+        EngineRoomIntercom.StopAllCoroutines();
     }
 
     private void HandleGameComplete()
@@ -842,10 +857,13 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(30);
 
-        HandleGameStart();
         uiManager.DisableMainMenuPanel();
+        uiManager.DisableBadEndingPanel();
+        uiManager.DisableNeutralEndingPanel();
         uiManager.EnableCreditsPanel();
         uiManager.EnableCreditsMMButton();
+
+        HandleGameStart();
     }
 
 #endregion
