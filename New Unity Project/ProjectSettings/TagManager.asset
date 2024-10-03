@@ -23,6 +23,7 @@ TagManager:
   - BloomCamera
   - EngineRoomButton1
   - EngineRoomButton2
+  - Vent
   layers:
   - Default
   - TransparentFX

@@ -349,15 +349,7 @@ public class GameManager : MonoBehaviour
 
     void ResetGame()
     {
-        // Reset Player
-        currentState = GameStates.MAIN_DECK_START;
-        lastState = GameStates.MAIN_DECK_START;
-        if (savePoints.Count > 0)
-        {
-            lastSavePoint = savePoints[0];
-        }
-
-        playerMovement.gameObject.transform.position = lastSavePoint.position;
+        HandleGameStart();
     }
 
 #endregion
@@ -382,6 +374,9 @@ public class GameManager : MonoBehaviour
         {
             be.enabled = false;
         }
+
+        keyFound = false;
+        gunFound = false;
 
         // Crew Randomizer
         crewMemberRandomizer = GetComponent<CrewMemberRandomizer>();

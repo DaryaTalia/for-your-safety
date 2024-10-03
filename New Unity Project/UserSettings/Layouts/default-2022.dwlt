@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Scene
   m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 70
+  controlID: 98
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 126
+  controlID: 95
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 68
+  controlID: 96
   draggingID: 0
 --- !u!114 &13
 MonoBehaviour:
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 69
+  controlID: 97
   draggingID: 0
 --- !u!114 &14
 MonoBehaviour:
@@ -431,7 +431,7 @@ MonoBehaviour:
     m_CachedPref: 151
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 123572
+  m_LastInspectedObjectInstanceID: 23326
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 123572
+  m_LastSelectedObjectID: 23326
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -871,7 +871,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Art
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -879,7 +879,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Art
+  - Assets
   m_LastFoldersGridSize: 96
   m_LastProjectPath: D:\Documents\GitHub\Retro Horror Game Jam\for-your-safety\New
     Unity Project
@@ -887,9 +887,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 27}
-    m_SelectedIDs: d4600000
-    m_LastClickedID: 24788
-    m_ExpandedIDs: 00000000cc60000000ca9a3b
+    m_SelectedIDs: c8600000
+    m_LastClickedID: 24776
+    m_ExpandedIDs: 00000000c860000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -917,7 +917,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000cc600000
+    m_ExpandedIDs: 00000000c8600000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1057,9 +1057,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: fcfaffff
+      m_SelectedIDs: b6eaffff0ee1ffff56deffff86daffffa4d9ffff0ad6ffff
+      m_LastClickedID: -10742
+      m_ExpandedIDs: fcfaffff365b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1439,9 +1439,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -24.987488, y: -20.23827, z: 13.241762}
+    m_Target: {x: -3.1495204, y: 2.884446, z: 5.6772914}
     speed: 2
-    m_Value: {x: -24.987488, y: -20.23827, z: 13.241762}
+    m_Value: {x: -3.1495204, y: 2.884446, z: 5.6772914}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1487,13 +1487,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.28094158, y: -0.6539007, z: 0.28639346, w: 0.64145637}
+    m_Target: {x: 0.043966338, y: -0.85516477, z: 0.51122886, w: 0.0735468}
     speed: 2
-    m_Value: {x: -0.28094158, y: 0.6539007, z: -0.28639346, w: -0.64145637}
+    m_Value: {x: 0.046914745, y: -0.85547197, z: 0.5096723, w: 0.07874674}
   m_Size:
-    m_Target: 40.59937
+    m_Target: 13.124327
     speed: 2
-    m_Value: 40.59937
+    m_Value: 13.124327
   m_Ortho:
     m_Target: 0
     speed: 2

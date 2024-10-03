@@ -42,6 +42,12 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Vents
+        if(other.gameObject.CompareTag("Vent"))
+        {
+            gameObject.GetComponentInParent<FirstPersonController>().inVent = true;
+        }
+
         // Crew
         if (other.gameObject.CompareTag("CrewMember"))
         {
@@ -183,6 +189,12 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        // Vents
+        if (other.gameObject.CompareTag("Vent"))
+        {
+            gameObject.GetComponentInParent<FirstPersonController>().inVent = false;
+        }
+
         // Door
         if (other.gameObject.CompareTag("Door"))
         {

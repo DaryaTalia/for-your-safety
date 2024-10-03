@@ -63,7 +63,6 @@ public class IntercomScript : MonoBehaviour
             StopCoroutine(cor);
         }
         StopAllCoroutines();
-        //DisplayDialogue();
         PlayDialogue();
     }
 
@@ -107,22 +106,6 @@ public class IntercomScript : MonoBehaviour
         yield return new WaitForSeconds(time);
     }
 
-    void DisplayDialogue()
-    {
-        int order = 0;
-        foreach(string text in IntercomDialogue)
-        {
-            StartCoroutine(DialogueIterator(text, dialogueDelay * order++));
-        }
-        StartCoroutine(ObjectiveEnumerator(dialogueDelay * order));
-    }
-
-    IEnumerator DialogueIterator(string message, int delay)
-    {
-        yield return new WaitForSeconds(delay);
-        GameManager.Instance.uiManager.UpdateProtagText(message);
-    }
-
     IEnumerator ObjectiveEnumerator(int delay)
     {
         yield return new WaitForSeconds(delay);
@@ -134,19 +117,16 @@ public class IntercomScript : MonoBehaviour
                 GameManager.Instance.audioManager.StopMainDeckScene();
 
                 GameManager.Instance.SpawnKeycard();
-                Destroy(this, 2f);
                 break;
             case GameManager.GameStates.AIRLOCK_INTERCOM_ANSWERED:
                 GameManager.Instance.audioManager.StopAirlockScene();
 
                 GameManager.Instance.AirlockButton.GetComponent<ButtonScript>().enabled = true;
-                Destroy(this, 2f);
                 break;
             case GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED:
                 GameManager.Instance.audioManager.StopCrewQuartersScene();
 
                 GameManager.Instance.crewQuartersDialogueComplete = true;
-                Destroy(this, 2f);
                 break;
             case GameManager.GameStates.ENGINE_ROOM_ENTERED:
                 GameManager.Instance.audioManager.StopEngineeringScene();

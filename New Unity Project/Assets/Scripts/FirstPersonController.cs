@@ -28,6 +28,7 @@ public class FirstPersonController : MonoBehaviour
     Vector2 moveInput;              // WASD
 
     bool isCrouching;
+    public bool inVent;
 
     [SerializeField]
     Collider standingBody;
@@ -131,14 +132,17 @@ public class FirstPersonController : MonoBehaviour
 
     void OnCrouch()
     {
-        // Start Crouch
-        if (isCrouching)
+        if(!inVent)
         {
-            StandUp();
-        }
-        else
-        {
-            CrouchDown();
+            // Start Crouch
+            if (isCrouching)
+            {
+                StandUp();
+            }
+            else
+            {
+                CrouchDown();
+            }
         }
     }
 
