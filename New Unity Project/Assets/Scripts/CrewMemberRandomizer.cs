@@ -19,10 +19,13 @@ public class CrewMemberRandomizer : MonoBehaviour
     [TextArea(2, 5)]
     List<string> crewTextList;
 
+    bool textDisabled;
+
     // Start is called before the first frame update
     void Start()
     {
         RandomizeSprites();
+        textDisabled = false;
     }
 
     void RandomizeSprites()
@@ -38,7 +41,7 @@ public class CrewMemberRandomizer : MonoBehaviour
 
     public void ToggleNextText(Collider crew)
     {
-        if(crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true))
+        if(crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true) && !textDisabled)
         {
             crew.gameObject.GetComponentInChildren<TextMeshProUGUI>(true).gameObject.SetActive(true);
             Debug.Log(crewTextList[crewDiscovered]);
@@ -50,6 +53,8 @@ public class CrewMemberRandomizer : MonoBehaviour
             if(crewDiscovered >= 4)
             {
                 Instantiate(GameManager.Instance.KeycardPrefab, crew.gameObject.transform.position, Quaternion.identity, crew.gameObject.transform);
+                GameManager.Instance.keyFound = true;
+                textDisabled = true;
             }
         }        
     }

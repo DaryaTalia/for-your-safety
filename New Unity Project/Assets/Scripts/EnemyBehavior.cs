@@ -6,7 +6,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField]
     int health = 3;
-    float speed = .4f;
+    float speed = .45f;
 
     float distanceSensitivity = 5f;
     float attackSensitivity = 2f;
@@ -16,20 +16,22 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField]
     GameObject KeycardPrefab;
 
+    Animator anim;
+
     Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         canAttack = true;
-
+        anim = GetComponent<Animator>();
         mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(health > 0)
+        if(health > 0 && health < 300)
         {
             float distFromPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.gameObject.transform.position);
 
@@ -65,14 +67,17 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeDamage()
     {
+        anim.SetTrigger("hurt");
         --health;
         CheckDeath();
     }
 
     void CheckDeath()
     {
-        if(health <= 0)
+        if(health <= 0 && health < 300)
         {
+            health = 301;
+
             Debug.Log("Enemy is Dead");
 
             GetComponentInChildren<Animator>().enabled = false;

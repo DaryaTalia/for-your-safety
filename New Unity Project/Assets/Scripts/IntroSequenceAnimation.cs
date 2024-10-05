@@ -12,6 +12,10 @@ public class IntroSequenceAnimation : MonoBehaviour
     Image IntroBackground;
     float fadeDuration = 3f;
 
+    readonly float red = 0.2352941f;
+    readonly float green = 0.3490196f;
+    readonly float blue = 0.3372549f;
+
     [SerializeField]
     [TextArea(2, 5)]
     List<string> IntroText;
@@ -24,6 +28,7 @@ public class IntroSequenceAnimation : MonoBehaviour
     public void Start()
     {
         IntroTextBox.text = "  ";
+        IntroBackground.color = new Color(red, green, blue, 1);
     }
 
     public void Update()
@@ -50,7 +55,7 @@ public class IntroSequenceAnimation : MonoBehaviour
 
     IEnumerator PlayText(string message)
     {
-        yield return new WaitForSeconds(textSpeed * index++ + (textSpeedModifier / message.Length));
+        yield return new WaitForSeconds(textSpeed * index++ + (textSpeedModifier / (message.Length + 1)));
         IntroTextBox.text = message;
     }
 

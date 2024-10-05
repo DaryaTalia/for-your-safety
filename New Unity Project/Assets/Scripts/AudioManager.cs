@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Music Settings")]
-    public float musicVolume = .3f;
+    public float musicVolume = .25f;
 
     [SerializeField]
     AudioClip chaseMusic;
@@ -16,16 +16,26 @@ public class AudioManager : MonoBehaviour
     AudioSource ambientMusicSource;
 
     [Header("SFX Settings")]
-    public float sfxVolume = .4f;
+    public float sfxVolume = .3f;
 
     [SerializeField]
     AudioClip intercomBeep;
     AudioSource intercomBeepSource;
 
     [SerializeField]
+    AudioClip spookSound;
+    AudioSource spookSoundSource;
+    public float spookSoundLength;
+
+    [SerializeField]
     AudioClip airlockScene;
     AudioSource airlockSceneSource;
     public float airlockSceneLength;
+
+    [SerializeField]
+    AudioClip airlockSound;
+    AudioSource airlockSoundSource;
+    public float airlockSoundLength;
 
     [SerializeField]
     AudioClip crewQuartersScene;
@@ -40,6 +50,11 @@ public class AudioManager : MonoBehaviour
     AudioClip engineeringScene;
     AudioSource engineeringSceneSource;
     public float engineeringSceneLength;
+
+    [SerializeField]
+    AudioClip engineeringPortal;
+    AudioSource engineeringPortalSource;
+    public float engineeringPortalLength;
 
     [SerializeField]
     AudioClip mainDeckScene;
@@ -86,6 +101,13 @@ public class AudioManager : MonoBehaviour
             intercomBeepSource.loop = true;
             intercomBeepSource.volume = sfxVolume;
         }
+        if (spookSound != null)
+        {
+            spookSoundSource = gameObject.AddComponent<AudioSource>();
+            spookSoundSource.clip = spookSound;
+            spookSoundSource.loop = false;
+            spookSoundSource.volume = sfxVolume;
+        }
 
         if (airlockScene != null)
         {
@@ -93,6 +115,14 @@ public class AudioManager : MonoBehaviour
             airlockSceneSource.clip = airlockScene;
             airlockSceneSource.loop = false;
             airlockSceneSource.volume = sfxVolume;
+        }
+
+        if (airlockSound != null)
+        {
+            airlockSoundSource = gameObject.AddComponent<AudioSource>();
+            airlockSoundSource.clip = airlockSound;
+            airlockSoundSource.loop = false;
+            airlockSoundSource.volume = sfxVolume;
         }
 
         if (crewQuartersScene != null)
@@ -117,6 +147,14 @@ public class AudioManager : MonoBehaviour
             engineeringSceneSource.clip = engineeringScene;
             engineeringSceneSource.loop = false;
             engineeringSceneSource.volume = sfxVolume;
+        }
+
+        if (engineeringPortal != null)
+        {
+            engineeringPortalSource = gameObject.AddComponent<AudioSource>();
+            engineeringPortalSource.clip = engineeringPortal;
+            engineeringPortalSource.loop = true;
+            engineeringPortalSource.volume = sfxVolume;
         }
 
         if (mainDeckScene != null)
@@ -171,6 +209,16 @@ public class AudioManager : MonoBehaviour
         return intercomBeepSource;
     }
 
+    public void PlaySpook()
+    {
+        spookSoundSource.Play();
+    }
+
+    public void StopSpook()
+    {
+        spookSoundSource.Stop();
+    }
+
     public void PlayAirlockScene()
     {
         airlockSceneSource.Play();
@@ -179,6 +227,16 @@ public class AudioManager : MonoBehaviour
     public void StopAirlockScene()
     {
         airlockSceneSource.Stop();
+    }
+
+    public void PlayAirlockSound()
+    {
+        airlockSoundSource.Play();
+    }
+
+    public void StopAirlockSound()
+    {
+        airlockSoundSource.Stop();
     }
 
     public void PlayCrewQuartersScene()
@@ -209,6 +267,16 @@ public class AudioManager : MonoBehaviour
     public void StopEngineeringScene()
     {
         engineeringSceneSource.Stop();
+    }
+
+    public void PlayEngineeringPortal()
+    {
+        engineeringPortalSource.Play();
+    }
+
+    public void StopEngineeringPortal()
+    {
+        engineeringPortalSource.Stop();
     }
     public void PlayMainDeckScene()
     {

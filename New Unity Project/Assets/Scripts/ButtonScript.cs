@@ -5,10 +5,15 @@ public class ButtonScript : MonoBehaviour
 {
     public UnityEvent ActionDelegate;
 
-    public bool active;
+    public bool active = true;
 
     private void Start()
     {
-        active = false;
+        active = true;
+    }
+
+    public void ChangeStatus(bool value)
+    {
+        active = value;
     }
 }

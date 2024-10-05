@@ -11,8 +11,8 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("OnLook")]
     public Transform cameraTransform;
-    public float mouseSensitivity = 80;
-    public float rotationLimit = 90f;
+    float mouseSensitivity = 30;
+    float rotationLimit = 90f;
 
     Vector2 lookInput;              // mouse
     float verticalRotation = 0f;    // camera
@@ -24,8 +24,8 @@ public class FirstPersonController : MonoBehaviour
     GameObject crouchingHead;
 
     [Header("OnMove")]
-    public float moveSpeed = 5f;
-    Vector2 moveInput;              // WASD
+    public Vector2 moveInput;              // WASD
+    float moveSpeed = 4f;
 
     bool isCrouching;
     public bool inVent;

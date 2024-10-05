@@ -50,6 +50,7 @@ public class InteractionController : MonoBehaviour
             case "EngineRoomButton1":
 
                 GameManager.Instance.Button1Pushed = true;
+                GameObject.FindGameObjectWithTag("EngineRoomButton1").GetComponent<ItemGlow>().SetInactive();
                 GameObject.FindGameObjectWithTag("EngineRoomButton1").GetComponent<ItemGlow>().enabled = false;
 
                 ClearTarget();
@@ -59,6 +60,7 @@ public class InteractionController : MonoBehaviour
             case "EngineRoomButton2":
 
                 GameManager.Instance.Button2Pushed = true;
+                GameObject.FindGameObjectWithTag("EngineRoomButton2").GetComponent<ItemGlow>().SetInactive();
                 GameObject.FindGameObjectWithTag("EngineRoomButton2").GetComponent<ItemGlow>().enabled = false;
 
                 ClearTarget();
@@ -108,7 +110,10 @@ public class InteractionController : MonoBehaviour
         {
             GameManager.Instance.uiManager.ResumeGame();
             GameManager.Instance.GamePaused = false;
-            GameManager.Instance.Player.enabled = true;
+            if (GameManager.Instance.currentState != GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED)
+            {
+                GameManager.Instance.Player.enabled = true;
+            }
 
         }
     }

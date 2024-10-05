@@ -15,10 +15,16 @@ public class IntercomScript : MonoBehaviour
 
     List<Coroutine> activeCoroutines;
 
-    int dialogueDelay = 4;
+    bool hasBeenAnswered;
     bool ringing;
     bool ringCooldown;
     int ringTimer = 3;
+
+    public bool Answered
+    {
+        get => hasBeenAnswered;
+        set => hasBeenAnswered = value;
+    }
 
     public bool Ringing
     {
@@ -53,17 +59,21 @@ public class IntercomScript : MonoBehaviour
 
     public void Answer()
     {
-        // Destroy Audio Device to end ringing
-        ringing = false;
-        ringCooldown = false;
-        GameManager.Instance.audioManager.StopIntercomBeep();
-        GameManager.Instance.uiManager.UpdateProtagText(" ");
-        foreach(Coroutine cor in activeCoroutines)
+        if(!hasBeenAnswered)
         {
-            StopCoroutine(cor);
-        }
-        StopAllCoroutines();
-        PlayDialogue();
+            hasBeenAnswered = true;
+            // Destroy Audio Device to end ringing
+            ringing = false;
+            ringCooldown = false;
+            GameManager.Instance.audioManager.StopIntercomBeep();
+            GameManager.Instance.uiManager.UpdateProtagText(" ");
+            foreach (Coroutine cor in activeCoroutines)
+            {
+                StopCoroutine(cor);
+            }
+            StopAllCoroutines();
+            PlayDialogue();
+        }        
     }
 
     void PlayDialogue()

@@ -139,6 +139,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Transform portalLocation;
     [SerializeField]
+    Transform SecondaryEntitySpawn;
+    [SerializeField]
+    Transform TertiaryEntitySpawn;
+    [SerializeField]
     GameObject portal;
 
     [SerializeField]
@@ -148,7 +152,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject engineRoomWindow;
     [SerializeField]
-    Mesh brokenWindowMesh;
+    GameObject EjectPosition;
+    [SerializeField]
+    Material brokenWindowMaterial;
+
+    GameObject PrimaryEntity;
 
     [Header("Doors")]
     public DoorScript MainDeckDoor;
@@ -381,6 +389,9 @@ public class GameManager : MonoBehaviour
 
         PlayerArm.SetActive(false);
 
+        AirlockButton.GetComponent<ButtonScript>().active = true;
+        AirlockButton.GetComponent<ButtonScript>().enabled = true;
+
         keyFound = false;
         gunFound = false;
 
@@ -442,6 +453,13 @@ public class GameManager : MonoBehaviour
         if (currentLocation == Locations.AIRLOCK &&
             currentState == GameStates.MAIN_DECK_KEYCARD_COLLECTED)
         {
+            EnterNextState();
+        }
+        if(currentLocation == Locations.AIRLOCK &&
+            currentState == GameStates.AIRLOCK_INTERCOM_ANSWERED &&
+            AirlockButton.GetComponent<ButtonScript>().active == false)
+        {
+            AirlockButton.GetComponent<ButtonScript>().enabled = false;
             EnterNextState();
         }
         else
@@ -563,6 +581,7 @@ public class GameManager : MonoBehaviour
         // Start First Task
         Player.GetComponentInChildren<PlayerInteraction>().StopMainDeckDialogue();
         MainDeckIntercom.Answer();
+        MainDeckIntercom.Answered = true;
 
         MainDeckIntercom.GetComponentInChildren<ItemGlow>().SetInactive();
     }
@@ -581,6 +600,9 @@ public class GameManager : MonoBehaviour
         MainDeckDoor.Unlock();
         MainDeckDoor.NeedsKey = false;
         keyFound = false;
+
+        AirlockButton.GetComponent<ButtonScript>().enabled = false;
+        AirlockButton.GetComponent<BoxCollider>().enabled = false;
     }
 
     private void HandleAirlockIntercomRinging()
@@ -608,9 +630,13 @@ public class GameManager : MonoBehaviour
         // Start First Task
         //Player.GetComponentInChildren<PlayerInteraction>().StopAirlockDialogue();
         AirlockIntercom.Answer();
+        AirlockIntercom.Answered = true;
+        AirlockButton.GetComponent<BoxCollider>().enabled = true;
 
         // Start Second Task
         NextRespawnPoint();
+
+        AirlockButton.GetComponent<ButtonScript>().enabled = true;
 
         AirlockIntercom.GetComponent<ItemGlow>().SetInactive();
         AirlockButton.GetComponent<ItemGlow>().SetActive();
@@ -623,15 +649,17 @@ public class GameManager : MonoBehaviour
         // Start First Task
         StartCoroutine(HandleAirlockJettisonSequence());
         AirlockButton.GetComponent<ItemGlow>().SetInactive();
+        AirlockButton.GetComponent<ButtonScript>().active = false;
     }
 
     IEnumerator HandleAirlockJettisonSequence()
     {
         ExternalAirlockDoor.Open = true;
         ExternalAirlockDoor.GetComponent<Animator>().SetTrigger("OpenDoor");
+        audioManager.PlayAirlockSound();
         AirlockBody.AddComponent<Rigidbody>();
         AirlockBody.GetComponent<Rigidbody>().useGravity = false;
-        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.left * 15, ForceMode.Impulse);
+        AirlockBody.GetComponent<Rigidbody>().AddForce(Vector3.left * 10, ForceMode.Impulse);
 
         yield return new WaitForSeconds(jettisonTimer);
 
@@ -667,6 +695,7 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         CrewQuartersIntercom.Answer();
+        CrewQuartersIntercom.Answered = true;
 
         // Start Third Task
         NextRespawnPoint();
@@ -715,8 +744,6 @@ public class GameManager : MonoBehaviour
 
         // Start Second Task
         CrewQuartersDoor.gameObject.AddComponent<AudioSource>();
-        //CrewQuartersDoor.gameObject.GetComponent<AudioSource>().clip = doorBanging;
-        //CrewQuartersDoor.gameObject.GetComponent<AudioSource>().Play();
 
         uiManager.GetInventoryPanelController().RemoveItem("Key");
 
@@ -725,6 +752,8 @@ public class GameManager : MonoBehaviour
         audioManager.PlayAmbientMusic();
         audioManager.PlayDoorCrash();
         audioManager.StopChaseMusic();
+
+        CrewQuartersDoor.Lock();
     }
     
     private void HandleStorageRoomChase()
@@ -758,7 +787,8 @@ public class GameManager : MonoBehaviour
 
         // Start First Task
         GameObject newPortal = Instantiate(portal, portalLocation.position, Quaternion.identity);
-        Instantiate(entity, newPortal.transform.position, Quaternion.identity);
+        PrimaryEntity = Instantiate(entity, newPortal.transform.position, Quaternion.identity);
+        audioManager.PlayEngineeringPortal();
 
         // Start Second Task
         keyFound = false;
@@ -779,50 +809,57 @@ public class GameManager : MonoBehaviour
         audioManager.StopAmbientMusic();
 
         EngineRoomIntercom.Answer();
+        EngineRoomIntercom.Answered = true;
+
+        StorageDoor.Lock();
     }
 
     private void HandleEngineRoomPortalOpened()
     {
         Debug.Log("Engine Room Portal Opened.");
 
+        EngineRoomIntercom.StopAllCoroutines();
+
+        audioManager.StopEngineeringScene();
+
         // Start First Task
-        Instantiate(entity, portal.transform);
-        Instantiate(entity, portal.transform);
+        Instantiate(entity, SecondaryEntitySpawn.position, Quaternion.identity);
+        Instantiate(entity, TertiaryEntitySpawn.position, Quaternion.identity);
 
-        // End Game
-        EnterState(GameStates.GAME_COMPLETE);
-
-        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
-        engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
-        engineRoomButton2.GetComponent<ItemGlow>().enabled = false;
+        audioManager.PlaySpook();
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().SetInactive();
         engineRoomButton1.GetComponent<ItemGlow>().SetInactive();
         engineRoomButton2.GetComponent<ItemGlow>().SetInactive();
 
-        EngineRoomIntercom.StopAllCoroutines();
+        engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
+        engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
+        engineRoomButton2.GetComponent<ItemGlow>().enabled = false;
+
+        // End Game
+        EnterState(GameStates.GAME_COMPLETE);
     }
     
     private void HandleEngineRoomWindowShot()
     {
         Debug.Log("Engine Room Window Shot.");
 
+        EngineRoomIntercom.StopAllCoroutines();
+
         // Start First Task
-        engineRoomWindow.GetComponentInChildren<MeshFilter>().mesh = brokenWindowMesh;
+        engineRoomWindow.GetComponentInChildren<MeshRenderer>().material = brokenWindowMaterial;
         engineRoomWindow.GetComponentInChildren<MeshCollider>().enabled = false;
 
         // Start Second Task
+        audioManager.StopEngineeringScene();
 
         // Calculate Directions to Window
-        Vector3 directionPlayerToWindow = engineRoomWindow.transform.position - Player.gameObject.transform.position;
-        Vector3 directionEntityToWindow = engineRoomWindow.transform.position - GameObject.FindGameObjectWithTag("Entity").transform.position;
+        Vector3 directionPlayerToWindow = EjectPosition.transform.position - Player.gameObject.transform.position;
+        Vector3 directionEntityToWindow = EjectPosition.transform.position - PrimaryEntity.transform.position;
 
         // Throw Player and Entity out the window
-        Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow * 15, ForceMode.Impulse);
-        GameObject.FindGameObjectWithTag("Entity").GetComponentInChildren<Rigidbody>().AddForce(directionEntityToWindow * 15, ForceMode.Impulse);
-
-        // End Game
-        EnterState(GameStates.GAME_COMPLETE);
+        Player.gameObject.GetComponent<Rigidbody>().AddForce(directionPlayerToWindow * 1.5f, ForceMode.Impulse);
+        PrimaryEntity.GetComponent<Rigidbody>().AddForce(directionEntityToWindow * 2, ForceMode.Impulse);
 
         engineRoomWindow.GetComponentInChildren<ItemGlow>().enabled = false;
         engineRoomButton1.GetComponent<ItemGlow>().enabled = false;
@@ -832,14 +869,26 @@ public class GameManager : MonoBehaviour
         engineRoomButton1.GetComponent<ItemGlow>().SetInactive();
         engineRoomButton2.GetComponent<ItemGlow>().SetInactive();
 
-        EngineRoomIntercom.StopAllCoroutines();
+        // End Game
+        EnterState(GameStates.GAME_COMPLETE);
     }
 
     private void HandleGameComplete()
     {
+        audioManager.StopEngineeringPortal();
+        audioManager.PlayAmbientMusic();
+        audioManager.StopChaseMusic();
+
+        StartCoroutine(HandleGameCompleteIE());
+    }
+
+    IEnumerator HandleGameCompleteIE()
+    {
         Debug.Log("Game Complete!");
 
-        if(lastState == GameStates.ENGINE_ROOM_WINDOW_SHOT)
+        yield return new WaitForSeconds(5);
+
+        if (lastState == GameStates.ENGINE_ROOM_WINDOW_SHOT)
         {
             uiManager.StartNeutralEndingSequence();
         }
@@ -847,23 +896,26 @@ public class GameManager : MonoBehaviour
 
         if (lastState == GameStates.ENGINE_ROOM_PORTAL_OPENED)
         {
+            audioManager.StopSpook();
             uiManager.StartBadEndingSequence();
         }
+
+        yield return new WaitForSeconds(10);
 
         StartCoroutine(HandleReturnToMainMenuCredits());
     }
 
     IEnumerator HandleReturnToMainMenuCredits()
     {
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(5);
 
+        HandleGameStart();
+
+        uiManager.EnableCreditsPanel();
+        uiManager.EnableCreditsMMButton();
         uiManager.DisableMainMenuPanel();
         uiManager.DisableBadEndingPanel();
         uiManager.DisableNeutralEndingPanel();
-        uiManager.EnableCreditsPanel();
-        uiManager.EnableCreditsMMButton();
-
-        HandleGameStart();
     }
 
 #endregion

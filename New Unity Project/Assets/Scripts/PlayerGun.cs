@@ -9,7 +9,7 @@ public class PlayerGun : MonoBehaviour
     float cooldown = 3f;
     [SerializeField]
     float timer = 1;
-    float range = 30f;
+    float range = 50f;
 
     [SerializeField]
     LayerMask enemyMask;
@@ -49,13 +49,6 @@ public class PlayerGun : MonoBehaviour
             Camera.main.transform.forward * 10, 
             Color.blue, 15f);
 
-        timer = 1;
-
-        if (GameManager.Instance.PlayerArm.activeSelf)
-        {
-            GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
-        }
-
         ShootEnemy();
         ShootWindow();
     }
@@ -69,6 +62,13 @@ public class PlayerGun : MonoBehaviour
 
         if (hit)
         {
+            timer = 1;
+
+            if (GameManager.Instance.PlayerArm.activeSelf)
+            {
+                GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
+            }
+
             Debug.Log("Shot Enemy");
             result.collider.gameObject.GetComponent<EnemyBehavior>().TakeDamage();
         }
@@ -83,6 +83,13 @@ public class PlayerGun : MonoBehaviour
 
         if (hit)
         {
+            timer = 1;
+
+            if (GameManager.Instance.PlayerArm.activeSelf)
+            {
+                GameManager.Instance.PlayerArm.GetComponentInChildren<Animator>().SetTrigger("shoot");
+            }
+
             Debug.Log("Shot Window");
             GameManager.Instance.WindowShot = true;
         }

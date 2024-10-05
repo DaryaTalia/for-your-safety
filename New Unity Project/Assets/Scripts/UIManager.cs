@@ -199,7 +199,11 @@ public class UIManager : MonoBehaviour
     public void DisablePausePanel()
     {
         PausePanel.SetActive(false);
-        GameManager.Instance.Player.enabled = true;
+
+        if(GameManager.Instance.currentState != GameManager.GameStates.CREW_QUARTERS_INTERCOM_ANSWERED)
+        {
+            GameManager.Instance.Player.enabled = true;
+        }
     }
 
     public void UpdateLocationText(string locationText)

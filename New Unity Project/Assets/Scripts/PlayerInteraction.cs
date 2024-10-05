@@ -38,7 +38,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     string EngineRoomObjective;
 
-    int dialogueDelay = 3;
+    int dialogueDelay = 2;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,23 +51,16 @@ public class PlayerInteraction : MonoBehaviour
         // Crew
         if (other.gameObject.CompareTag("CrewMember"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "CrewMember");
+            Colliding(other, "CrewMember");
 
             StartCoroutine(Reset());
             return;
         }
 
-
         // Key
         if (other.gameObject.CompareTag("Key"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "Key");
+            Colliding(other, "Key");
 
             StartCoroutine(Reset());
             return;
@@ -76,10 +69,7 @@ public class PlayerInteraction : MonoBehaviour
         // Gun
         if (other.gameObject.CompareTag("Gun"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "Gun");
+            Colliding(other, "Gun");
 
             StartCoroutine(Reset());
             return;
@@ -88,10 +78,7 @@ public class PlayerInteraction : MonoBehaviour
         // Buttons
         if (other.gameObject.CompareTag("Button"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "Button");
+            Colliding(other, "Button");
 
             StartCoroutine(Reset());
             return;
@@ -100,10 +87,7 @@ public class PlayerInteraction : MonoBehaviour
         // Button 1
         if (other.gameObject.CompareTag("EngineRoomButton1"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "EngineRoomButton1");
+            Colliding(other, "EngineRoomButton1");
 
             StartCoroutine(Reset());
             return;
@@ -112,10 +96,7 @@ public class PlayerInteraction : MonoBehaviour
         // Button 2
         if (other.gameObject.CompareTag("EngineRoomButton2"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "EngineRoomButton2");
+            Colliding(other, "EngineRoomButton2");
 
             StartCoroutine(Reset());
             return;
@@ -124,10 +105,7 @@ public class PlayerInteraction : MonoBehaviour
         // Intercom
         if (other.gameObject.CompareTag("Intercom"))
         {
-            if (isColliding) return;
-            isColliding = true;
-
-            controller.SetNewTarget(other, "Intercom");
+            Colliding(other, "Intercom");
 
             StartCoroutine(Reset());
             return;
@@ -185,6 +163,14 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+    }
+
+    void Colliding(Collider other, string target)
+    {
+        if (isColliding) return;
+        isColliding = true;
+
+        controller.SetNewTarget(other, target);
     }
 
     private void OnTriggerExit(Collider other)
@@ -262,11 +248,27 @@ public class PlayerInteraction : MonoBehaviour
 
     public void PlayStorageRoomDialogue()
     {
+        int order = 0;
+        StorageRoomDialogue.Insert(0, " ");
+        StorageRoomDialogue.Add(" ");
+        foreach (string text in StorageRoomDialogue)
+        {
+            StartCoroutine(Speak(text, dialogueDelay * order++));
+        }
+
         GameManager.Instance.uiManager.UpdateObjectiveText(StorageRoomObjective);
     }
 
     public void PlayEngineRoomDialogue()
     {
+        int order = 0;
+        EngineRoomDialogue.Insert(0, " ");
+        EngineRoomDialogue.Add(" ");
+        foreach (string text in EngineRoomDialogue)
+        {
+            StartCoroutine(Speak(text, dialogueDelay * order++));
+        }
+
         GameManager.Instance.uiManager.UpdateObjectiveText(EngineRoomObjective);
     }
 
